@@ -3,9 +3,10 @@ import { Product } from '../model/product.model';
 import { ProductRepository } from '../model/product.repository';
 import { ModelModule } from '../model/model.module';
 import { CommonModule } from '@angular/common';
+import { CounterDirective } from './counter.directive';
 
 @Component({
-  imports: [ModelModule, CommonModule],
+  imports: [ModelModule, CommonModule, CounterDirective],
   selector: 'store',
   templateUrl: 'store.component.html',
 })
@@ -16,7 +17,7 @@ export class StoreComponent {
   productsPerPage = signal(4);
   selectedPage = signal(1);
   pagedProducts: Signal<Product[]>;
-  pageNumbers: Signal<number[]>;
+  pageCount: Signal<number>;
 
   constructor(private repository: ProductRepository) {
     this.products = computed(() => {
@@ -38,11 +39,11 @@ export class StoreComponent {
         pageIndex() + this.productsPerPage()
       );
     });
-    this.pageNumbers = computed(() => {
-      return Array(Math.ceil(this.products().length / this.productsPerPage()))
-        .fill(0)
-        .map((x, i) => i + 1);
-    });
+
+    this.pageCount = computed(() => {
+      return Math.ceil(this.products().length 
+          / this.productsPerPage());
+  });
   }
 
   changeCategory(newCategory?: string) {
