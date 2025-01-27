@@ -4,9 +4,11 @@ import { ProductRepository } from '../model/product.repository';
 import { ModelModule } from '../model/model.module';
 import { CommonModule } from '@angular/common';
 import { CounterDirective } from './counter.directive';
+import { Cart } from '../model/cart.model';
+import { CartSummaryComponent } from './cartSummary.component';
 
 @Component({
-  imports: [ModelModule, CommonModule, CounterDirective],
+  imports: [ModelModule, CommonModule, CounterDirective, CartSummaryComponent],
   selector: 'store',
   templateUrl: 'store.component.html',
 })
@@ -19,7 +21,7 @@ export class StoreComponent {
   pagedProducts: Signal<Product[]>;
   pageCount: Signal<number>;
 
-  constructor(private repository: ProductRepository) {
+  constructor(private repository: ProductRepository, private cart: Cart) {
     this.products = computed(() => {
       if (this.selectedCategory() == undefined) {
         return this.repository.products();
@@ -41,9 +43,8 @@ export class StoreComponent {
     });
 
     this.pageCount = computed(() => {
-      return Math.ceil(this.products().length 
-          / this.productsPerPage());
-  });
+      return Math.ceil(this.products().length / this.productsPerPage());
+    });
   }
 
   changeCategory(newCategory?: string) {
@@ -58,5 +59,9 @@ export class StoreComponent {
   changePageSize(newSize: number) {
     this.productsPerPage.set(Number(newSize));
     this.changePage(1);
+  }
+
+  addProductToCart(product: Product) {
+    this.cart.addLine(product);
   }
 }
