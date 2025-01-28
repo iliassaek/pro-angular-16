@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { CounterDirective } from './counter.directive';
 import { Cart } from '../model/cart.model';
 import { CartSummaryComponent } from './cartSummary.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [ModelModule, CommonModule, CounterDirective, CartSummaryComponent],
+  imports: [ModelModule, CommonModule, CounterDirective, CartSummaryComponent, RouterModule],
   selector: 'store',
   templateUrl: 'store.component.html',
 })
