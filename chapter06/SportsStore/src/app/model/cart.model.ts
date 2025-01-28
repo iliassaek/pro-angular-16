@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 import { Product } from './product.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class Cart {
   private linesSignal: WritableSignal<CartLine[]>;
   public summary: Signal<CartSummary>;

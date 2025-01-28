@@ -1,10 +1,13 @@
-import { Component } from "@angular/core";
- 
+import { Component } from '@angular/core';
+import { Cart } from '../model/cart.model';
+import { CommonModule } from '@angular/common';
+import { ModelModule } from '../model/model.module';
+
 @Component({
-    template: `<div>
-                    <h3 class="bg-info p-1 text-white">
-                        Cart Detail Component
-                    </h3>
-                </div>`
+  selector: "cart-detail",
+  imports: [CommonModule],
+  templateUrl: 'cartDetail.component.html',
 })
-export class CartDetailComponent {}
+export class CartDetailComponent {
+  constructor(public cart: Cart) {}
+}
