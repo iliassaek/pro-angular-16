@@ -26,6 +26,5 @@ export const routes: Routes = [
       import('./app/admin/admin.module').then((m) => m.AdminModule),
     canActivate: [StoreFirstGuard],
   },
-  { path: '**', redirectTo: 'auth' },
   { path: '**', redirectTo: '/store' },
 ];
