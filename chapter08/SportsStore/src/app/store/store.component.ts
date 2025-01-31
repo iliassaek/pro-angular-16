@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
 import { CounterDirective } from './counter.directive';
 import { Cart } from '../model/cart.model';
 import { CartSummaryComponent } from './cartSummary.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { PlatformService } from './plateform.service';
 
 @Component({
   imports: [ModelModule, CommonModule, CounterDirective, CartSummaryComponent, RouterModule],
@@ -22,7 +23,8 @@ export class StoreComponent {
   pagedProducts: Signal<Product[]>;
   pageCount: Signal<number>;
 
-  constructor(private repository: ProductRepository, private cart: Cart) {
+  constructor(private repository: ProductRepository, private cart: Cart,private router: Router, 
+    private ps: PlatformService) {
     this.products = computed(() => {
       if (this.selectedCategory() == undefined) {
         return this.repository.products();
@@ -65,4 +67,5 @@ export class StoreComponent {
   addProductToCart(product: Product) {
     this.cart.addLine(product);
   }
+  get isServer() { return this.ps.isServer }
 }
