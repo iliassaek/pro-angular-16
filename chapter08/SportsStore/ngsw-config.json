@@ -26,5 +26,21 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-product",
+      "urls": [
+        "/api/products",
+        "http://localhost:3500/products"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "5d"
+      }
+    }
+  ],
+  "navigationUrls": [
+    "/**"
   ]
 }

@@ -7,7 +7,7 @@ import { CounterDirective } from './counter.directive';
 import { Cart } from '../model/cart.model';
 import { CartSummaryComponent } from './cartSummary.component';
 import { Router, RouterModule } from '@angular/router';
-import { PlatformService } from './plateform.service';
+import { PlatformService } from '../plateform.service';
 
 @Component({
   imports: [ModelModule, CommonModule, CounterDirective, CartSummaryComponent, RouterModule],
