@@ -14,6 +14,10 @@ export class ProductComponent {
 
   get count(): number {
       let result =  this.model.getProducts().length;
+      // let total = 0;
+      // for (let i = 0; i < 1000000000; i++) {
+      //     total += 1;
+      // }
       console.log(`count value read: ${result}`);
       return result;
   }
