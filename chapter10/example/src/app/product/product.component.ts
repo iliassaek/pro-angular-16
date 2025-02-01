@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { Model } from './repository.model';
 
 @Component({
@@ -31,11 +31,17 @@ export class ProductComponent {
     return result;
   }
 
-  get message(): string {
+  // get message(): string {
+  //     let result = `${this.messages[this.index()]} $${this.total}`;
+  //     console.log(`message value read: ${result}`);
+  //     return result;
+  // }
+
+  message = computed<string>(() => {
     let result = `${this.messages[this.index()]} $${this.total}`;
     console.log(`message value read: ${result}`);
     return result;
-  }
+  });
 
   toggleMessage() {
     console.clear();
