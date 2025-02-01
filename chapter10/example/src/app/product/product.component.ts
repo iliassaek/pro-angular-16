@@ -5,7 +5,7 @@ import { Model } from './repository.model';
   selector: 'app-product',
   imports: [],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styleUrl: './product.component.css',
 })
 export class ProductComponent {
   private model: Model = new Model();
@@ -13,15 +13,33 @@ export class ProductComponent {
   private index = 0;
 
   get count(): number {
-      return this.model.getProducts().length;
+      let result =  this.model.getProducts().length;
+      console.log(`count value read: ${result}`);
+      return result;
   }
 
   get total(): string {
-      return this.model.getProducts()
+      let result = this.model.getProducts()
           .reduce((total, p) => total + (p.price ?? 0), 0).toFixed(2);
+      console.log(`total value read: ${result}`);            
+      return result;
   }
 
   get message(): string {
-      return `${this.messages[this.index]} $${this.total}`;
+      let result = `${this.messages[this.index]} $${this.total}`;
+      console.log(`message value read: ${result}`);        
+      return result;
+  }
+
+  toggleMessage() {
+      console.clear();        
+      console.log("toggleMessage method invoked");
+      this.index = (this.index + 1) % 2;
+  }
+
+  removeProduct() {
+      console.clear();
+      console.log("removeProduct method invoked");
+      this.model.deleteProduct(this.model.getProducts()[0].id ?? 0);
   }
 }
