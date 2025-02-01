@@ -9,8 +9,19 @@ import { Model } from './repository.model';
 })
 export class ProductComponent {
   private model: Model = new Model();
+  private messages = ["Total", "Price"];
+  private index = 0;
 
-  get count() : number {
-    return this.model.getProducts().length;
+  get count(): number {
+      return this.model.getProducts().length;
+  }
+
+  get total(): string {
+      return this.model.getProducts()
+          .reduce((total, p) => total + (p.price ?? 0), 0).toFixed(2);
+  }
+
+  get message(): string {
+      return `${this.messages[this.index]} $${this.total}`;
   }
 }
