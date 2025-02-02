@@ -1,6 +1,7 @@
 import { Component, computed, effect, signal } from '@angular/core';
 import { Model } from './repository.model';
 import { Ticker } from './ticker.model';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product',
@@ -14,12 +15,12 @@ export class ProductComponent {
   private index = signal<number>(0);
 
   private ticker = new Ticker();
-  tickerValue = 0;
+  tickerValue = toSignal(this.ticker.value, { initialValue: 0 });
 
-  constructor() {
-      this.ticker.value.subscribe(newValue => 
-          this.tickerValue = newValue);
-  }
+  // constructor() {
+  //     this.ticker.value.subscribe(newValue =>
+  //         this.tickerValue = newValue);
+  // }
 
   count = computed<number>(() => this.model.Products().length);
 
@@ -37,7 +38,9 @@ export class ProductComponent {
   }
 
   message = computed<string>(
-    () => `${this.messages[this.index()]} $${this.total}`
+    () =>
+      `${this.messages[this.index()]} $${this.total} ` +
+      ` Ticker: ${this.tickerValue()}`
   );
 
   messageEffect = effect(() =>
