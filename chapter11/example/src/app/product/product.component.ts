@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-wrapper-object-types */
 import { Component, computed } from '@angular/core';
 import { Model } from './repository.model';
@@ -32,8 +33,11 @@ export class ProductComponent {
   getClassMap(key: number): Object {
     let product = this.products()[key];
     return {
-        "text-center bg-danger": product.name == "Kayak",
-        "bg-info": (product.price ?? 0) < 50
+      'text-center bg-danger': product.name == 'Kayak',
+      'bg-info': (product.price ?? 0) < 50,
     };
-}
+  }
+
+  fontSizeWithUnits: string = "30px";
+  fontSizeWithoutUnits: string= "30";
 }
