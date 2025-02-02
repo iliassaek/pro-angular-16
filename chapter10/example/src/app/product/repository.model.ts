@@ -1,48 +1,46 @@
-import { SimpleDataSource } from "./datasource.model";
-import { Product } from "./product.model";
+import { Signal, signal, WritableSignal } from '@angular/core';
+import { SimpleDataSource } from './datasource.model';
+import { Product } from './product.model';
 
 export class Model {
-    private dataSource: SimpleDataSource;
-    private products: Product[];
-    private locator = (p: Product, id: number | any) => p.id == id;
+  private dataSource: SimpleDataSource;
+  private products: WritableSignal<Product[]>;
+  private locator = (p: Product, id: number | any) => p.id == id;
 
-    constructor() {
-        this.dataSource = new SimpleDataSource();
-        this.products = new Array<Product>();
-        this.dataSource.getData().forEach(p => this.products.push(p));
-    }
+  constructor() {
+    this.dataSource = new SimpleDataSource();
+    this.products = signal(new Array<Product>());
+    this.products.update((prods) => [...prods, ...this.dataSource.getData()]);
+  }
 
-    getProducts(): Product[] {
-        return this.products;
-    }
+  get Products(): Signal<Product[]> {
+    return this.products.asReadonly();
+  }
 
-    getProduct(id: number): Product | undefined {
-        return this.products.find(p => this.locator(p, id));
-    }
+  getProduct(id: number): Product | undefined {
+    return this.products().find((p) => this.locator(p, id));
+  }
 
-    saveProduct(product: Product) {
-        if (product.id == 0 || product.id == null) {
-            product.id = this.generateID();
-            this.products.push(product);
-        } else {
-            let index = this.products.findIndex(p =>
-                this.locator(p, product.id));
-            this.products.splice(index, 1, product);
-        }
+  saveProduct(product: Product) {
+    if (product.id == 0 || product.id == undefined) {
+      product.id = this.generateID();
+      this.products.update((prods) => [...prods, product]);
+    } else {
+      this.products.update((prods) =>
+        prods.map((p) => (this.locator(p, product.id) ? product : p))
+      );
     }
+  }
 
-    deleteProduct(id: number) {
-        let index = this.products.findIndex(p => this.locator(p, id));
-        if (index > -1) {
-            this.products.splice(index, 1);
-        }
-    }
+  deleteProduct(id: number) {
+    this.products.update((prods) => prods.filter((p) => !this.locator(p, id)));
+  }
 
-    private generateID(): number {
-        let candidate = 100;
-        while (this.getProduct(candidate) != null) {
-            candidate++;
-        }
-        return candidate;
+  private generateID(): number {
+    let candidate = 100;
+    while (this.getProduct(candidate) != null) {
+      candidate++;
     }
+    return candidate;
+  }
 }
