@@ -1,3 +1,18 @@
-<div class="bg-info text-white p-2">
-  Hello, World
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<div [ngClass]="'text-white p-2 ' + classes()">
+  Name: {{ products()[1].name}}
 </div>
+<div class="form-group m-2">
+  <label>Name:</label>
+  <input class="form-control" [value]="products()[1].name" />
+</div>
+<table class="table mt-2">
+  <tr>
+      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+  </tr>
+  <tr>
+      <td [attr.colspan]="count()">
+          {{ products()[1].name}}
+      </td>
+  </tr>
+</table>
