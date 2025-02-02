@@ -12,11 +12,19 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductComponent {
   private model: Model = new Model();
- 
+
   products = computed<Product[]>(() => this.model.Products());
 
   count = computed<number>(() => this.products().length);
 
-  classes = computed<string>(() => 
-      this.count() == 5 ? "bg-success" : "bg-warning");
+  classes = computed<string>(() =>
+    this.count() == 5 ? 'bg-success' : 'bg-warning'
+  );
+
+  getClasses(key: number) {
+    return (
+      'p-2 ' +
+      ((this.products()[key].price ?? 0) > 50 ? 'bg-info' : 'bg-warning')
+    );
+  }
 }

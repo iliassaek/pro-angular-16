@@ -1,18 +1,21 @@
-<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
-<div [ngClass]="'text-white p-2 ' + classes()">
-  Name: {{ products()[1].name}}
+<div class="text-white">
+  <div [class]="getClasses(0)">
+      The first product is {{ products()[0].name }}
+  </div>
+  <div [class]="getClasses(1)">
+      The second product is {{ products()[1].name }} 
+  </div>
 </div>
-<div class="form-group m-2">
-  <label>Name:</label>
-  <input class="form-control" [value]="products()[1].name" />
+
+<br>
+
+<div class="text-white">
+  <div [class]="getClasses(0)">
+      The first product is {{ products()[0].name }}
+  </div>
+  <div class="p-2"
+      [class.bg-success]="(products()[1].price ?? 0) < 50"
+      [class.bg-info]="(products()[1].price ?? 0) >= 50">
+          The second product is {{products()[1].name}}
+  </div>
 </div>
-<table class="table mt-2">
-  <tr>
-      <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-  </tr>
-  <tr>
-      <td [attr.colspan]="count()">
-          {{ products()[1].name}}
-      </td>
-  </tr>
-</table>
