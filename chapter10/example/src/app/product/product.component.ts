@@ -1,5 +1,6 @@
 import { Component, computed, effect, signal } from '@angular/core';
 import { Model } from './repository.model';
+import { Ticker } from './ticker.model';
 
 @Component({
   selector: 'app-product',
@@ -11,6 +12,14 @@ export class ProductComponent {
   private model: Model = new Model();
   private messages = ['Total', 'Price'];
   private index = signal<number>(0);
+
+  private ticker = new Ticker();
+  tickerValue = 0;
+
+  constructor() {
+      this.ticker.value.subscribe(newValue => 
+          this.tickerValue = newValue);
+  }
 
   count = computed<number>(() => this.model.Products().length);
 
