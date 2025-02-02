@@ -1,21 +1,13 @@
 <div class="text-white">
-  <div [class]="getClasses(0)">
-      The first product is {{ products()[0].name }}
+  <div class="p-2" [ngClass]="getClassMap(0)">
+    The first product is {{ products()[0].name }}
   </div>
-  <div [class]="getClasses(1)">
-      The second product is {{ products()[1].name }} 
+  <div class="p-2" [ngClass]="getClassMap(1)">
+    The second product is {{ products()[1].name }}
   </div>
-</div>
-
-<br>
-
-<div class="text-white">
-  <div [class]="getClasses(0)">
-      The first product is {{ products()[0].name }}
-  </div>
-  <div class="p-2"
-      [class.bg-success]="(products()[1].price ?? 0) < 50"
-      [class.bg-info]="(products()[1].price ?? 0) >= 50">
-          The second product is {{products()[1].name}}
+  <div class="p-2" 
+      [ngClass]="{'bg-success': (products()[2].price ?? 0) < 50,
+          'bg-info': (products()[2].price ?? 0) >= 50}">
+      The third product is {{products()[2].name}}
   </div>
 </div>
