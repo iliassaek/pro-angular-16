@@ -14,18 +14,26 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductComponent {
   private model: Model = new Model();
- 
-  targetName: string = "Kayak";
+
+  targetName: string = 'Kayak';
 
   products = computed<Product[]>(() => this.model.Products());
 
   count = computed<number>(() => this.products().length);
 
   product(key: number): Product | undefined {
-      return this.model.getProduct(key);
+    return this.model.getProduct(key);
   }
 
   removeProduct() {
-      this.model.deleteProduct(this.model.Products()[0].id ?? 0);
+    this.model.deleteProduct(this.model.Products()[0].id ?? 0);
+  }
+  
+  swapProduct() {
+    let p = this.products()[0];
+    if (p != null && p.id != null) {
+      this.model.deleteProduct(p.id);
+      this.model.saveProduct({ ...p, id: 0 });
+    }
   }
 }
