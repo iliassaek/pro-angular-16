@@ -1,15 +1,6 @@
-<ng-template #titleTemplate let-text="title">
-  <h4 class="p-2 bg-success text-white">{{text}}</h4>
-</ng-template>
-
-<ng-template [ngTemplateOutlet]="titleTemplate"
-  [ngTemplateOutletContext]="{title: 'Header'}">
-</ng-template>
-
-<div class="bg-info p-2 m-2 text-white">
-  There are {{count()}} products.
+<div class="bg-info p-2 text-white">
+  Product Names:
+  <ng-container *ngFor="let item of products(); let last = last">
+      {{ item.name}}<ng-container *ngIf="!last">,</ng-container>
+  </ng-container>
 </div>
-
-<ng-template [ngTemplateOutlet]="titleTemplate"
-  [ngTemplateOutletContext]="{title: 'Footer'}">
-</ng-template>
