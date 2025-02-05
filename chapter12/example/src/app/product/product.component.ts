@@ -28,12 +28,15 @@ export class ProductComponent {
   removeProduct() {
     this.model.deleteProduct(this.model.Products()[0].id ?? 0);
   }
-  
+
   swapProduct() {
     let p = this.products()[0];
     if (p != null && p.id != null) {
       this.model.deleteProduct(p.id);
       this.model.saveProduct({ ...p, id: 0 });
     }
+  }
+  getKey(index: number, product: Product) {
+    return product.name;
   }
 }
