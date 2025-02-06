@@ -16,6 +16,6 @@
     </table>
     <div class="form-group">
         <label>Product Name</label>
-        <input class="form-control" (input)="selectedProduct.set($any($event).target.value)" />
+        <input class="form-control" (input)="handleInputEvent($event)" />
     </div>
 </div>
