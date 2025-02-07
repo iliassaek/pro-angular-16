@@ -3,13 +3,12 @@
 <!-- eslint-disable @angular-eslint/template/mouse-events-have-key-events -->
 <div class="p-2">
     <div class="bg-info text-white p-2">
-        Selected Product: {{product.value || '(None)'}}
-    </div>
+        Selected Product: {{ selectedProduct() ?? '(None)' }}
+    </div>    
     <table class="table table-sm table-bordered">
-        <tr *ngFor="let item of products(); let i = index" [class.bg-info]="product.value == item.name">
-            <td (mouseover)="product.value = item.name ?? ''">
-                {{i + 1}}
-            </td>
+        <tr *ngFor="let item of products(); let i = index"
+                [class.bg-info]="getSelected(item)">
+            <td (mouseover)="selectedProduct.set(item.name)">{{i + 1}}</td>
             <td>{{item.name}}</td>
             <td>{{item.category}}</td>
             <td>{{item.price}}</td>
@@ -17,6 +16,14 @@
     </table>
     <div class="form-group">
         <label>Product Name</label>
-        <input #product class="form-control" (input)="false" />
-    </div>
+        <input class="form-control"  
+            (input)="selectedProduct.set($any($event).target.value)"
+            [value]="selectedProduct() ?? ''" />
+      </div>
+      <div class="form-group">
+        <label>Product Name</label>
+        <input class="form-control" 
+            (input)="selectedProduct.set($any($event).target.value)"
+            [value]="selectedProduct() ?? ''" />
+      </div>    
 </div>
