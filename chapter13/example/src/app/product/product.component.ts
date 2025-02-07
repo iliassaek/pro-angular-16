@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-wrapper-object-types */
-import { Component, computed, signal } from "@angular/core";
+import { Component, computed } from '@angular/core';
 import { Model } from './repository.model';
 
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -24,19 +24,28 @@ export class ProductComponent {
     return this.model.getProduct(key);
   }
 
-  selectedProduct = signal<string | undefined>(undefined);
+  // selectedProduct = signal<string | undefined>(undefined);
 
-  getSelected(product: Product): boolean {
-    return product.name == this.selectedProduct();
+  // get selectedProductProp() { return this.selectedProduct(); }
+  // set selectedProductProp(val) { this.selectedProduct.set(val)};
+
+  // getSelected(product: Product): boolean {
+  //     return product.name == this.selectedProduct();
+  // }
+
+  // handleInputEvent(ev: Event) {
+  //     if (ev.target instanceof HTMLInputElement) {
+  //         this.selectedProduct.set(ev.target.value);
+  //     }
+  // }
+
+  newProduct: Product = new Product();
+
+  get jsonProduct() {
+    return JSON.stringify(this.newProduct);
   }
-  
-  get selectedProductProp() { return this.selectedProduct(); }
-  set selectedProductProp(val) { this.selectedProduct.set(val)};
 
-
-  handleInputEvent(ev: Event) {
-    if (ev.target instanceof HTMLInputElement) {
-      this.selectedProduct.set(ev.target.value);
-    }
+  addProduct(p: Product) {
+    console.log('New Product: ' + this.jsonProduct);
   }
 }

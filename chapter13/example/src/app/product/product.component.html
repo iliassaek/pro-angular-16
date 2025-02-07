@@ -2,26 +2,22 @@
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <!-- eslint-disable @angular-eslint/template/mouse-events-have-key-events -->
 <div class="p-2">
-    <div class="bg-info text-white p-2">
-        Selected Product: {{ selectedProduct() ?? '(None)' }}
-    </div>    
-    <table class="table table-sm table-bordered">
-        <tr *ngFor="let item of products(); let i = index"
-                [class.bg-info]="getSelected(item)">
-            <td (mouseover)="selectedProduct.set(item.name)">
-                {{i + 1}}
-            </td>
-            <td>{{item.name}}</td>
-            <td>{{item.category}}</td>
-            <td>{{item.price}}</td>
-        </tr>
-    </table>
+    <div class="bg-info text-white mb-2 p-2">
+        Model Data: {{jsonProduct}}
+    </div>
     <div class="form-group">
-        <label>Product Name</label>
-        <input class="form-control" [(ngModel)]="selectedProductProp" />
-      </div>
-      <div class="form-group">
-        <label>Product Name</label>
-        <input class="form-control" [(ngModel)]="selectedProductProp" />
-      </div>    
+      <label>Name</label>
+      <input class="form-control" [(ngModel)]="newProduct.name" />
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <input class="form-control" [(ngModel)]="newProduct.category" />
+    </div>
+    <div class="form-group">
+      <label>Price</label>
+      <input class="form-control" [(ngModel)]="newProduct.price" />
+    </div>
+    <button class="btn btn-primary mt-2" (click)="addProduct(newProduct)">
+        Create
+    </button>
 </div>
