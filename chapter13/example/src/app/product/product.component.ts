@@ -5,10 +5,11 @@ import { Model } from './repository.model';
 
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
@@ -28,6 +29,10 @@ export class ProductComponent {
   getSelected(product: Product): boolean {
     return product.name == this.selectedProduct();
   }
+  
+  get selectedProductProp() { return this.selectedProduct(); }
+  set selectedProductProp(val) { this.selectedProduct.set(val)};
+
 
   handleInputEvent(ev: Event) {
     if (ev.target instanceof HTMLInputElement) {
