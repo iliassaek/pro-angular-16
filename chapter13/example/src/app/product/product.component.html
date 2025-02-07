@@ -5,10 +5,25 @@
   <div class="bg-info text-white mb-2 p-2">
     Model Data: {{jsonProduct}}
   </div>
+
   <form (ngSubmit)="addProduct(newProduct)">
     <div class="form-group">
       <label>Name</label>
-      <input class="form-control" name="name" [(ngModel)]="newProduct.name" required minlength="5" pattern="^[A-Za-z ]+$" />
+      <input class="form-control" name="name" [(ngModel)]="newProduct.name" #name="ngModel" required minlength="5"
+        pattern="^[A-Za-z ]+$" />
+      <ul class="text-danger list-unstyled mt-1" *ngIf="name.dirty && name.invalid">
+        <li *ngIf="name.errors?.['required']">
+          You must enter a product name
+        </li>
+        <li *ngIf="name.errors?.['pattern']">
+          Product names can only contain letters and spaces
+        </li>
+        <li *ngIf="name.errors?.['minlength']">
+          Product names must be at least
+          {{ name.errors?.['minlength'].requiredLength }}
+          characters
+        </li>
+      </ul>
     </div>
     <button class="btn btn-primary mt-2" type="submit">
       Create
