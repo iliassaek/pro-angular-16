@@ -5,11 +5,12 @@ import { Model } from './repository.model';
 
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm, NgModel, ValidationErrors } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
+import { PaAttrDirective } from '../attr.directive';
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PaAttrDirective ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
