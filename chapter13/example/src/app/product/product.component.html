@@ -2,36 +2,34 @@
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <!-- eslint-disable @angular-eslint/template/mouse-events-have-key-events -->
 <div class="p-2">
-  <div class="bg-info text-white mb-2 p-2">
-    Model Data: {{jsonProduct}}
-  </div>
-  
-  <form #form="ngForm" (ngSubmit)="submitForm(form)">
-
-    <div class="bg-danger text-white p-2 mb-2"
-            *ngIf="formSubmitted && form.invalid">
-         There are problems with the form
+    <div class="bg-info text-white mb-2 p-2">
+        Model Data: {{jsonProduct}}
     </div>
 
-    <div class="form-group">
-        <label>Name</label>
-        <input class="form-control"
-            name="name"
-            [(ngModel)]="newProduct.name"
-            #name="ngModel"
-            required
-            minlength="5"
-            pattern="^[A-Za-z ]+$" />
-        <ul class="text-danger list-unstyled mt-1"
-                *ngIf="(formSubmitted || name.dirty) && name.invalid">
-            <li *ngFor="let error of getValidationMessages(name)">
-                {{error}}
-            </li>
-        </ul>        
-    </div>
-    <button class="btn btn-primary mt-2" type="submit">
-        Create
-    </button>
-</form>
+    <form #form="ngForm" (ngSubmit)="submitForm(form)">
+
+        <div class="bg-danger text-white p-2 mb-2" *ngIf="formSubmitted && form.invalid">
+            There are problems with the form
+            <ul>
+                <li *ngFor="let error of getFormValidationMessages(form)">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" name="name" [(ngModel)]="newProduct.name" #name="ngModel" required minlength="5"
+                pattern="^[A-Za-z ]+$" />
+            <ul class="text-danger list-unstyled mt-1" *ngIf="(formSubmitted || name.dirty) && name.invalid">
+                <li *ngFor="let error of getValidationMessages(name)">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <button class="btn btn-primary mt-2" type="submit">
+            Create
+        </button>
+    </form>
 
 </div>

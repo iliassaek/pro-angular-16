@@ -75,16 +75,24 @@ export class ProductComponent {
     return this.getMessages(state.errors, thing);
   }
 
-
   formSubmitted: boolean = false;
 
   submitForm(form: NgForm) {
-      this.formSubmitted = true;
-      if (form.valid) {
-          this.addProduct(this.newProduct);
-          this.newProduct = new Product();
-          form.resetForm();
-          this.formSubmitted = false;
-      }
-  }  
+    this.formSubmitted = true;
+    if (form.valid) {
+      this.addProduct(this.newProduct);
+      this.newProduct = new Product();
+      form.resetForm();
+      this.formSubmitted = false;
+    }
+  }
+
+  getFormValidationMessages(form: NgForm): string[] {
+    let messages: string[] = [];
+    Object.keys(form.controls).forEach((k) => {
+      this.getMessages(form.controls[k].errors, k)
+        .forEach((m) => messages.push(m));
+    });
+    return messages;
+  }
 }
