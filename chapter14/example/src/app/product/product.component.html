@@ -1,0 +1,42 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<!-- eslint-disable @angular-eslint/template/mouse-events-have-key-events -->
+<div class="p-2">
+    <div class="bg-info text-white mb-2 p-2">
+        Model Data: {{jsonProduct}}
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="submitForm(form)">
+
+        <div class="bg-danger text-white p-2 mb-2" *ngIf="formSubmitted && form.invalid">
+            There are problems with the form
+            <ul>
+                <li *ngFor="let error of getFormValidationMessages(form)">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" name="name" [(ngModel)]="newProduct.name" #name="ngModel" required minlength="5"
+                pattern="^[A-Za-z ]+$" />
+        </div>
+
+        <div class="form-group">
+            <label>Category</label>
+            <input class="form-control" name="category" [(ngModel)]="newProduct.category" required />
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input class="form-control" name="price" [(ngModel)]="newProduct.price" required type="number" />
+        </div>
+
+        <button class="btn btn-primary mt-2" type="submit" [disabled]="formSubmitted && form.invalid"
+            [class.btn-secondary]="formSubmitted && form.invalid">
+            Create
+        </button>
+    </form>
+
+</div>
