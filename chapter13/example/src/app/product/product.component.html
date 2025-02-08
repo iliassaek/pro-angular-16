@@ -27,8 +27,10 @@
                 </li>
             </ul>
         </div>
-        <button class="btn btn-primary mt-2" type="submit">
-            Create
+        <button class="btn btn-primary mt-2" type="submit"
+            [disabled]="formSubmitted && form.invalid"
+            [class.btn-secondary]="formSubmitted && form.invalid">
+                Create
         </button>
     </form>
 
