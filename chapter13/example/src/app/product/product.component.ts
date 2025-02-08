@@ -5,7 +5,7 @@ import { Model } from './repository.model';
 
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgModel, ValidationErrors } from '@angular/forms';
+import { FormsModule, NgForm, NgModel, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -74,4 +74,17 @@ export class ProductComponent {
     let thing: string = state.path?.[0] ?? thingName;
     return this.getMessages(state.errors, thing);
   }
+
+
+  formSubmitted: boolean = false;
+
+  submitForm(form: NgForm) {
+      this.formSubmitted = true;
+      if (form.valid) {
+          this.addProduct(this.newProduct);
+          this.newProduct = new Product();
+          form.resetForm();
+          this.formSubmitted = false;
+      }
+  }  
 }
