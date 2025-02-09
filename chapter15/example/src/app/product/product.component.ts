@@ -7,16 +7,18 @@ import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { PaAttrDirective } from '../attr.directive';
-import { PaModel } from '../towwaybinding.directive';
+import { PaStructureDirective } from '../structure.directive';
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule, FormsModule, PaAttrDirective, PaModel ],
+  imports: [CommonModule, FormsModule, PaAttrDirective, PaStructureDirective ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
   private model: Model = new Model();
+
+  showTable: boolean = false;
  
   products = computed<Product[]>(() => this.model.Products());
 
