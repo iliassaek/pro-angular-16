@@ -7,10 +7,11 @@ import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { PaAttrDirective } from '../attr.directive';
+import { PaModel } from '../towwaybinding.directive';
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule, FormsModule, PaAttrDirective ],
+  imports: [CommonModule, FormsModule, PaAttrDirective, PaModel ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })

@@ -24,6 +24,14 @@
         </div>
 
         <div class="col">
+
+            <div class="form-group bg-info text-white p-2">
+                <label>Name:</label>
+                <input class="bg-primary text-white form-control" 
+                    [paModel]="newProduct.name" 
+                    (paModelChange)="newProduct.name = $event" />
+            </div>
+            
             <table class="table table-sm table-bordered table-striped">
                 <thead>
                     <tr>
