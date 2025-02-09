@@ -8,27 +8,16 @@
         <label class="form-check-label">Show table</label>
     </div>
 
-    <table *paIf="showTable" class="table table-bordered table-striped">
+    <table *paIf="showTable" 
+            class="table table-sm table-bordered table-striped">
         <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-            </tr>
+            <tr><th></th><th>Name</th><th>Category</th>
+                <th>Price</th></tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of products(); let i = index" [pa-attr]="count() < 6 
-                    ? 'table-success' : 'table-warning'" [pa-product]="item"
-                (pa-category)="newProduct.category = $event">
-                <td>{{i + 1}}</td>
-                <td>{{item.name}}</td>
-                <td [pa-attr]="item.category == 'Soccer' 
-                            ? 'table-info' : null">
-                    {{item.category}}
-                </td>
-                <td [pa-attr]="'table-info'">{{item.price}}</td>
-            </tr>
-        </tbody>
+            <ng-template [paForOf]="products()" let-item>
+                <tr><td colspan="4">{{item.name}}</td></tr>
+            </ng-template>
+        </tbody>    
     </table>
 </div>

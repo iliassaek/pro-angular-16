@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { PaAttrDirective } from '../attr.directive';
 import { PaStructureDirective } from '../structure.directive';
+import { PaIteratorDirective } from '../iterator.directive';
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule, FormsModule, PaAttrDirective, PaStructureDirective ],
+  imports: [CommonModule, FormsModule, PaAttrDirective, PaStructureDirective, PaIteratorDirective ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
