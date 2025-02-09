@@ -34,14 +34,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of products(); let i = index"
-                            [pa-attr]="products().length < 6 
-                                ? 'table-success' : 'table-warning'"
-                            [fg-class]="'text-dark'">
+                    <tr *ngFor="let item of products(); let i = index" [pa-attr]="products().length < 6 ? 'table-success' : 'table-warning'" 
+                        [pa-product]="item"
+                        (pa-category)="newProduct.category = $event" [fg-class]="'text-dark'">
                         <td>{{i + 1}}</td>
                         <td>{{item.name}}</td>
-                        <td [pa-attr]="item.category == 'Soccer' ? 'table-info' : null"
-                            [fg-class]="'text-danger'">
+                        <td [pa-attr]="item.category == 'Soccer' ? 'table-info' : null" [fg-class]="'text-danger'">
                             {{item.category}}
                         </td>
                         <td [pa-attr]="'table-info'" [fg-class]="'text-warning'">
