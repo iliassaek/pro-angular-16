@@ -3,7 +3,7 @@
 /* eslint-disable @angular-eslint/directive-class-suffix */
 /* eslint-disable @angular-eslint/no-input-rename */
 /* eslint-disable @typescript-eslint/no-wrapper-object-types */
-import { Directive, Input, SimpleChanges, ContentChildren, QueryList } from '@angular/core';
+import { Directive, Input, SimpleChanges, ContentChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { PaCellColor } from './cellcolor.directive';
 
 
@@ -11,6 +11,9 @@ import { PaCellColor } from './cellcolor.directive';
   selector: 'table',
 })
 export class PaCellColorSwitcher {
+
+  constructor(private changeRef: ChangeDetectorRef) {}
+
   @Input('paCellDarkColor')
   modelProperty: Boolean | undefined;
 
@@ -21,6 +24,14 @@ export class PaCellColorSwitcher {
       this.updateContentChildren(changes["modelProperty"].currentValue);
   }
 
+  ngAfterContentInit() {
+    if (this.modelProperty != undefined) {
+        this.contentChildren?.changes.subscribe(() => {
+            this.updateContentChildren(this.modelProperty as Boolean); 
+        });
+    }
+}
+
   private updateContentChildren(dark: Boolean) {
       if (this.contentChildren != null && dark != undefined) {
           this.contentChildren.forEach((child, index) => {
@@ -30,6 +41,7 @@ export class PaCellColorSwitcher {
                   child.setColor(false);
               }
           });
+          this.changeRef.detectChanges();
       }
   }
 }
