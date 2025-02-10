@@ -4,7 +4,6 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 import { Directive, ViewContainerRef, TemplateRef, Input} 
     from "@angular/core";
-import { interval } from "rxjs";
  
 @Directive({
     selector: "[paForOf]"
@@ -18,11 +17,20 @@ export class PaIteratorDirective {
     dataSource: any;
  
     ngOnInit() {
+        this.updateContent();
+    }
+
+    ngDoCheck() {
+        console.log("ngDoCheck Called");
+        this.updateContent();
+    }
+
+    private updateContent() {
         this.container.clear();
         for (let i = 0; i < this.dataSource.length; i++) {
             this.container.createEmbeddedView(this.template,
-                new PaIteratorContext(this.dataSource[i],
-                    i, this.dataSource.length));
+                 new PaIteratorContext(this.dataSource[i],
+                     i, this.dataSource.length));
         }
     }
 }
@@ -39,9 +47,5 @@ class PaIteratorContext {
         this.first = index == 0;
         this.last = index == total - 1;
 
-        interval(2000).subscribe(() => {
-            this.odd = !this.odd; this.even = !this.even;
-            this.$implicit.price++;            
-        })
     }
 }
