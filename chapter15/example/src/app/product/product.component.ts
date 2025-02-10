@@ -6,13 +6,12 @@ import { Model } from './repository.model';
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
-import { PaAttrDirective } from '../attr.directive';
 import { PaStructureDirective } from '../structure.directive';
 import { PaIteratorDirective } from '../iterator.directive';
 
 @Component({
   selector: 'app-product',
-  imports: [CommonModule, FormsModule, PaAttrDirective, PaStructureDirective, PaIteratorDirective ],
+  imports: [CommonModule, FormsModule, PaStructureDirective, PaIteratorDirective ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
