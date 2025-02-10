@@ -27,31 +27,39 @@
             <label class="form-check-label">Show table</label>
         </div>
 
-        <table *paIf="showTable" class="table table-sm table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *paFor="let item of products(); let i = index; 
-                let odd = odd;
-                let even = even" [class.table-info]="odd" [class.table-warning]="even" class="align-middle">
-                    <td>{{i + 1}}</td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.category}}</td>
-                    <td>{{item.price}}</td>
-                    <td class="text-center">
-                        <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="col">
+            <div class="form-check">
+                <label class="form-check-label">Dark Cell Color</label>
+                <input type="checkbox" class="form-check-input" [(ngModel)]="darkColor" />
+            </div>
+
+            <table *paIf="showTable" class="table table-sm table-bordered table-striped" [paCellDarkColor]="darkColor">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *paFor="let item of products(); let i = index; 
+                            let odd = odd;
+                            let even = even" [class.table-info]="odd" [class.table-warning]="even"
+                        class="align-middle">
+                        <td>{{i + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.category}}</td>
+                        <td>{{item.price}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import { PaStructureDirective } from '../structure.directive';
 import { PaIteratorDirective } from '../iterator.directive';
+import { PaCellColor } from '../cellcolor.directive';
+import { PaCellColorSwitcher } from '../cellColorSwitcher.directive';
 
 @Component({
   selector: 'app-product',
@@ -16,12 +18,16 @@ import { PaIteratorDirective } from '../iterator.directive';
     FormsModule,
     PaStructureDirective,
     PaIteratorDirective,
+    PaCellColor,
+    PaCellColorSwitcher
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
   private model: Model = new Model();
+  
+  darkColor: boolean = false;
 
   showTable: boolean = false;
 
