@@ -5,9 +5,10 @@ import { Model } from './repository.model';
 
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
-import { FormsModule} from '@angular/forms';
-import { ProductFormComponent } from "../productForm.component";
-import { ProductTableComponent } from "../productTable.component";
+import { FormsModule } from '@angular/forms';
+import { ProductFormComponent } from '../productForm.component';
+import { ProductTableComponent } from '../productTable.component';
+import { PaToggleView } from '../toggleView.component';
 
 @Component({
   selector: 'app-product',
@@ -15,14 +16,15 @@ import { ProductTableComponent } from "../productTable.component";
     CommonModule,
     FormsModule,
     ProductFormComponent,
-    ProductTableComponent
-],
+    ProductTableComponent,
+    PaToggleView,
+  ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
   model: Model = new Model();
-  
+
   darkColor: boolean = false;
 
   showTable: boolean = false;

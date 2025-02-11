@@ -5,7 +5,9 @@
             </paProductForm>
         </div>
         <div class="col p-2">
-            <paProductTable [model]="model"></paProductTable>
+            <paToggleView>
+                <paProductTable [model]="model"></paProductTable>
+            </paToggleView>            
         </div>
     </div>
 </div>
