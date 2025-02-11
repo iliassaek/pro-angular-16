@@ -21,7 +21,7 @@ import { ProductTableComponent } from "../productTable.component";
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
-  private model: Model = new Model();
+  model: Model = new Model();
   
   darkColor: boolean = false;
 
