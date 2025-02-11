@@ -10,7 +10,8 @@ import { FormsModule } from "@angular/forms";
     templateUrl: "productForm.component.html",
     imports:[
         FormsModule
-    ]
+    ],
+    styleUrls: ["productForm.component.css"]
 })
 export class ProductFormComponent {
     newProduct: Product = new Product();
