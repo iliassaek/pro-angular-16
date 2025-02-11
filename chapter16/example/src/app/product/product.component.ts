@@ -6,10 +6,6 @@ import { Model } from './repository.model';
 import { Product } from './product.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
-import { PaStructureDirective } from '../structure.directive';
-import { PaIteratorDirective } from '../iterator.directive';
-import { PaCellColor } from '../cellcolor.directive';
-import { PaCellColorSwitcher } from '../cellColorSwitcher.directive';
 import { ProductFormComponent } from "../productForm.component";
 import { ProductTableComponent } from "../productTable.component";
 
@@ -18,10 +14,6 @@ import { ProductTableComponent } from "../productTable.component";
   imports: [
     CommonModule,
     FormsModule,
-    PaStructureDirective,
-    PaIteratorDirective,
-    PaCellColor,
-    PaCellColorSwitcher,
     ProductFormComponent,
     ProductTableComponent
 ],
