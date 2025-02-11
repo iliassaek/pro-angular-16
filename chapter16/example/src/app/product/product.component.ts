@@ -10,6 +10,8 @@ import { PaStructureDirective } from '../structure.directive';
 import { PaIteratorDirective } from '../iterator.directive';
 import { PaCellColor } from '../cellcolor.directive';
 import { PaCellColorSwitcher } from '../cellColorSwitcher.directive';
+import { ProductFormComponent } from "../productForm.component";
+import { ProductTableComponent } from "../productTable.component";
 
 @Component({
   selector: 'app-product',
@@ -19,8 +21,10 @@ import { PaCellColorSwitcher } from '../cellColorSwitcher.directive';
     PaStructureDirective,
     PaIteratorDirective,
     PaCellColor,
-    PaCellColorSwitcher
-  ],
+    PaCellColorSwitcher,
+    ProductFormComponent,
+    ProductTableComponent
+],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
