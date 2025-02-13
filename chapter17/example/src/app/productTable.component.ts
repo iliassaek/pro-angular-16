@@ -1,18 +1,18 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @angular-eslint/no-input-rename */
 /* eslint-disable @angular-eslint/component-selector */
-import { ChangeDetectorRef, Component, Input, QueryList, Signal, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, Signal } from '@angular/core';
 import { Product } from './product/product.model';
 import { Model } from './product/repository.model';
 import { PaIteratorDirective } from './iterator.directive';
-import { PaCellColor } from './cellColor.directive';
+//import { PaCellColor } from './cellColor.directive';
 
 @Component({
   selector: 'paProductTable',
   templateUrl: 'productTable.component.html',
   imports: [
-    PaIteratorDirective,
-    PaCellColor
+    PaIteratorDirective
   ]
 })
 export class ProductTableComponent {
@@ -33,20 +33,7 @@ export class ProductTableComponent {
       this.dataModel.deleteProduct(key);
   }
 
-  @ViewChildren(PaCellColor)
-  viewChildren: QueryList<PaCellColor> | undefined;
- 
-  ngAfterViewInit() {
-      this.viewChildren?.changes.subscribe(() => {
-          this.updateViewChildren();
-      });
-      this.updateViewChildren();
-  }
-
-  private updateViewChildren() {
-      this.viewChildren?.forEach((child, index) => {
-          child.setColor(index % 2 ? true : false);
-      });
-      this.changeRef.detectChanges();        
-  }
+  taxRate: number = 0;
+  categoryFilter: string | undefined;
+  itemCount: number = 3;
 }
