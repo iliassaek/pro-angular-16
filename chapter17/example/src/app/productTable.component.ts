@@ -6,13 +6,15 @@ import { ChangeDetectorRef, Component, Input, Signal } from '@angular/core';
 import { Product } from './product/product.model';
 import { Model } from './product/repository.model';
 import { PaIteratorDirective } from './iterator.directive';
+import { CommonModule } from '@angular/common';
 //import { PaCellColor } from './cellColor.directive';
 
 @Component({
   selector: 'paProductTable',
   templateUrl: 'productTable.component.html',
   imports: [
-    PaIteratorDirective
+    PaIteratorDirective,
+    CommonModule
   ]
 })
 export class ProductTableComponent {
