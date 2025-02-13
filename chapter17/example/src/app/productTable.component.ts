@@ -8,6 +8,8 @@ import { Model } from './product/repository.model';
 import { PaIteratorDirective } from './iterator.directive';
 import { CommonModule } from '@angular/common';
 import { PaAddTaxPipe } from './addTax.pipe';
+import { PaCategoryFilterPipe } from './product/categoryFilter.pipe';
+import { FormsModule } from '@angular/forms';
 //import { PaCellColor } from './cellColor.directive';
 
 @Component({
@@ -16,7 +18,9 @@ import { PaAddTaxPipe } from './addTax.pipe';
   imports: [
     PaIteratorDirective,
     CommonModule,
-    PaAddTaxPipe
+    PaAddTaxPipe,
+    PaCategoryFilterPipe,
+    FormsModule
   ]
 })
 export class ProductTableComponent {
