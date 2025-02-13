@@ -7,6 +7,7 @@ import { Product } from './product/product.model';
 import { Model } from './product/repository.model';
 import { PaIteratorDirective } from './iterator.directive';
 import { CommonModule } from '@angular/common';
+import { PaAddTaxPipe } from './addTax.pipe';
 //import { PaCellColor } from './cellColor.directive';
 
 @Component({
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: 'productTable.component.html',
   imports: [
     PaIteratorDirective,
-    CommonModule
+    CommonModule,
+    PaAddTaxPipe
   ]
 })
 export class ProductTableComponent {
