@@ -1,6 +1,13 @@
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
-<div class="bg-info p-2 text-white">
-    <div>{{ Products() | json }}</div>
+<div class="form-group my-2">
+    <label>Number of items:</label>
+    <select class="form-select" [value]="itemCount || 1" 
+            (change)="itemCount=$any($event).target.value">
+        <option *ngFor="let item of Products(); let i = index" 
+                [value]="i + 1" [selected]="(i + 1) === itemCount">
+            {{i + 1}}
+        </option>
+    </select>
 </div>
 <table class="table table-sm table-bordered table-striped">
     <thead class="table-light">
@@ -13,9 +20,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *paFor="let item of Products() | filter:categoryFilter; 
+        <tr *paFor="let item of Products() | slice:0:(itemCount ?? 1); 
                 let i = index; let odd = odd;
-                let even = even" [class.table-info]="odd" [class.table-warning]="even" class="align-middle">
+                let even = even" [class.table-info]="odd" 
+                [class.table-warning]="even"
+                class="align-middle">
             <td>{{i + 1}}</td>
             <td>{{item.name | titlecase }}</td>
             <td>{{item.category | lowercase }}</td>
