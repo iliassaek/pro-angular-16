@@ -11,7 +11,11 @@
     </select>
 </div>
 
-
+<div class="bg-info p-2 text-white">
+    <div>Date formatted from object: {{ dateObject | date }}</div>
+    <div>Date formatted from string: {{ dateString | date }}</div>
+    <div>Date formatted from number: {{ dateNumber | date }}</div>
+</div>
 
 <table class="table table-sm table-bordered table-striped">
     <thead class="table-light">
