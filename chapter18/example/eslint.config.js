@@ -40,6 +40,16 @@ module.exports = tseslint.config(
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,
     ],
-    rules: {},
+    rules: {
+      '@angular-eslint/template/label-has-associated-control': 'off',
+      "@angular-eslint/component-selector": [
+        "error",
+        {
+          "type": "element",
+          "prefix": "app",
+          "style": "kebab-case"
+        }
+      ]
+    },
   }
 );

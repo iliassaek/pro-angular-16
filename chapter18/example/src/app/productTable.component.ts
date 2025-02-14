@@ -2,16 +2,15 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @angular-eslint/no-input-rename */
 /* eslint-disable @angular-eslint/component-selector */
-import { ChangeDetectorRef, Component, Input, Signal } from '@angular/core';
+import { Component, Input, Signal } from '@angular/core';
 import { Product } from './product/product.model';
 import { Model } from './product/repository.model';
 import { PaIteratorDirective } from './iterator.directive';
 import { CommonModule } from '@angular/common';
-import { PaAddTaxPipe } from './addTax.pipe';
-import { PaCategoryFilterPipe } from './product/categoryFilter.pipe';
 import { FormsModule } from '@angular/forms';
-import { interval } from 'rxjs';
-//import { PaCellColor } from './cellColor.directive';
+import { PaDiscountDisplayComponent } from "./discountDisplay.component";
+import { PaDiscountEditorComponent } from "./discountEditor.component";
+import { DiscountService } from './discount.service';
 
 @Component({
   selector: 'paProductTable',
@@ -19,16 +18,16 @@ import { interval } from 'rxjs';
   imports: [
     PaIteratorDirective,
     CommonModule,
-    PaAddTaxPipe,
-    PaCategoryFilterPipe,
     FormsModule,
-  ],
+    PaDiscountDisplayComponent,
+    PaDiscountEditorComponent
+],
 })
 export class ProductTableComponent {
+  discounter: DiscountService = new DiscountService();
+  
   @Input({ alias: 'model', required: true })
   dataModel!: Model;
-
-  constructor(private changeRef: ChangeDetectorRef) {}
 
   get Products(): Signal<Product[]> {
     return this.dataModel.Products;
@@ -46,17 +45,4 @@ export class ProductTableComponent {
   categoryFilter: string | undefined;
   itemCount: number = 3;
 
-  selectMap = {
-    Watersports: 'stay dry',
-    Soccer: 'score goals',
-    other: 'have fun',
-  };
-
-  numberMap = {
-    '=1': 'one product',
-    '=2': 'two products',
-    other: '# products',
-  };
-
-  numbers = interval(1000);
 }
