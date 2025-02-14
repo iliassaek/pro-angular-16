@@ -8,7 +8,7 @@
             <td>{{i + 1}}</td>
             <td>{{item.name}}</td>
             <td>{{item.category}}</td>
-            <td>{{item.price | currency:"USD":"symbol" }}</td>
+            <td>{{item.price | discount | currency:"USD":"symbol" }}</td>
             <td class="text-center">
                 <button class="btn btn-danger btn-sm" 
                         (click)="deleteProduct(item.id)">

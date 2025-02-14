@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaDiscountDisplayComponent } from "./discountDisplay.component";
 import { PaDiscountEditorComponent } from "./discountEditor.component";
+import { PaDiscountPipe } from "./discount.pipe";
 
 @Component({
   selector: 'paProductTable',
@@ -19,7 +20,8 @@ import { PaDiscountEditorComponent } from "./discountEditor.component";
     CommonModule,
     FormsModule,
     PaDiscountDisplayComponent,
-    PaDiscountEditorComponent
+    PaDiscountEditorComponent,
+    PaDiscountPipe
 ],
 })
 export class ProductTableComponent {
