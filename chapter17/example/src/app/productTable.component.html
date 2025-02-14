@@ -1,9 +1,10 @@
 <table class="table table-sm table-bordered table-striped">
-    <thead><tr><th>Key</th><th>Value</th></tr></thead>
+    <thead><tr><th>Name</th><th>Category</th><th>Message</th></tr></thead>
     <tbody>
-        <tr *paFor="let item of Products() | keyvalue">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value | json }}</td>
+        <tr *paFor="let item of Products()">
+            <td>{{ item.name }}</td>
+            <td>{{ item.category }}</td>
+            <td>Helps you {{ item.category | i18nSelect:selectMap }} </td>    
         </tr>
     </tbody>
 </table>
