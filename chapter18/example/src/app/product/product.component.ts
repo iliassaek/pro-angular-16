@@ -25,7 +25,7 @@ registerLocaleData(localeFr, 'fr-FR');
   styleUrl: './product.component.css',
 })
 export class ProductComponent {
-  model: Model = new Model();
+  constructor(public model: Model){}
 
   addProduct(p: Product) {
     this.model.saveProduct(p);

@@ -1,14 +1,15 @@
-import { Signal, signal, WritableSignal } from '@angular/core';
+import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { SimpleDataSource } from './datasource.model';
 import { Product } from './product.model';
 
+@Injectable({
+  providedIn:'root'
+})
 export class Model {
-  private dataSource: SimpleDataSource;
   private products: WritableSignal<Product[]>;
   private locator = (p: Product, id: number | any) => p.id == id;
 
-  constructor() {
-    this.dataSource = new SimpleDataSource();
+  constructor(private dataSource: SimpleDataSource) {
     this.products = signal(new Array<Product>());
     this.products.update((prods) => [...prods, ...this.dataSource.getData()]);
   }
