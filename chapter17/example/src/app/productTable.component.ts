@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { PaAddTaxPipe } from './addTax.pipe';
 import { PaCategoryFilterPipe } from './product/categoryFilter.pipe';
 import { FormsModule } from '@angular/forms';
+import { interval } from 'rxjs';
 //import { PaCellColor } from './cellColor.directive';
 
 @Component({
@@ -56,4 +57,6 @@ export class ProductTableComponent {
     '=2': 'two products',
     other: '# products',
   };
+
+  numbers = interval(1000);
 }
