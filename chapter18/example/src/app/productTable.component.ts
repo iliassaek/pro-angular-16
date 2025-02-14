@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { PaDiscountDisplayComponent } from "./discountDisplay.component";
 import { PaDiscountEditorComponent } from "./discountEditor.component";
 import { PaDiscountPipe } from "./discount.pipe";
+import { PaDiscountAmountDirective } from './discountAmount.directive';
+
 
 @Component({
   selector: 'paProductTable',
@@ -21,7 +23,8 @@ import { PaDiscountPipe } from "./discount.pipe";
     FormsModule,
     PaDiscountDisplayComponent,
     PaDiscountEditorComponent,
-    PaDiscountPipe
+    PaDiscountPipe,
+    PaDiscountAmountDirective,
 ],
 })
 export class ProductTableComponent {
