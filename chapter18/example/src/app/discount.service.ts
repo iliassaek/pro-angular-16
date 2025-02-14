@@ -1,4 +1,9 @@
+import { Injectable } from "@angular/core";
+
 /* eslint-disable @typescript-eslint/no-inferrable-types */
+@Injectable({
+    providedIn: 'root'
+})
 export class DiscountService {
     private discountValue: number = 10;
  

@@ -12,7 +12,5 @@ import { FormsModule } from "@angular/forms";
     imports: [FormsModule]
 })
 export class PaDiscountEditorComponent {
- 
-    @Input({ alias: "discounter", required: true})
-    discounter!: DiscountService;
+    constructor(public discounter: DiscountService) { }
 }

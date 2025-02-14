@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaDiscountDisplayComponent } from "./discountDisplay.component";
 import { PaDiscountEditorComponent } from "./discountEditor.component";
-import { DiscountService } from './discount.service';
 
 @Component({
   selector: 'paProductTable',
@@ -24,7 +23,6 @@ import { DiscountService } from './discount.service';
 ],
 })
 export class ProductTableComponent {
-  discounter: DiscountService = new DiscountService();
   
   @Input({ alias: 'model', required: true })
   dataModel!: Model;

@@ -10,7 +10,5 @@ import { DiscountService } from "./discount.service";
                </div>`
 })
 export class PaDiscountDisplayComponent {
- 
-    @Input({alias: "discounter", required: true})
-    discounter!: DiscountService;
+    constructor(public discounter: DiscountService) { }
 }
