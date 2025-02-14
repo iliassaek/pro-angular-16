@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-wrapper-object-types */
-import { Component, LOCALE_ID } from '@angular/core';
+import { Component } from '@angular/core';
 import { Model } from './repository.model';
 
 import { Product } from './product.model';
@@ -25,7 +25,6 @@ registerLocaleData(localeFr, 'fr-FR');
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
-  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }]
 })
 export class ProductComponent {
   model: Model = new Model();
