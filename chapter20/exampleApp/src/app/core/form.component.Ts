@@ -8,37 +8,43 @@ import { MODES, SharedState } from "./sharedState.service";
 import { toObservable } from "@angular/core/rxjs-interop";
  
 @Component({
-    standalone: false,
-    selector: "paForm",
-    templateUrl: "form.component.html",
-    styleUrls: ["form.component.css"]
+  standalone: false,
+  selector: "paForm",
+  templateUrl: "form.component.html",
+  styleUrls: ["form.component.css"],
 })
 export class FormComponent {
-    product: Product = new Product();
-    editing: boolean = false;   
-    nameField = new FormControl({value: "", disabled: false}); 
- 
-    constructor(private model: Model, private stateService: SharedState, 
-            messageService: MessageService) { 
- 
-        toObservable(stateService.state).subscribe(state => {
-            this.editing = state.mode == MODES.EDIT;
-            if (this.editing && state.id) {
-                this.product = Product.fromProduct(
-                    this.model.getProduct(state.id) ?? new Product()) ;
-            } else {
-                this.product = new Product;
-            }
-            this.nameField.setValue(this.product.name ?? "");
-            messageService.reportMessage(state.id
-                ? new Message(`Editing ${this.product.name}`)
-                    : new Message("Creating New Product"));            
-        });
+  product: Product = new Product();
+  editing: boolean = false;
+  nameField = new FormControl(
+    { value: "", disabled: false },
+    { updateOn: "blur" }
+  );
 
-        this.nameField.valueChanges.subscribe(newValue =>
-            messageService.reportMessage(
-              new Message(newValue || "(Empty")));
+  constructor(
+    private model: Model,
+    private stateService: SharedState,
+    messageService: MessageService
+  ) {
+    toObservable(stateService.state).subscribe((state) => {
+      this.editing = state.mode == MODES.EDIT;
+      if (this.editing && state.id) {
+        this.product = Product.fromProduct(
+          this.model.getProduct(state.id) ?? new Product()
+        );
+      } else {
+        this.product = new Product();
+      }
+      this.nameField.setValue(this.product.name ?? "");
+      messageService.reportMessage(
+        state.id
+          ? new Message(`Editing ${this.product.name}`)
+          : new Message("Creating New Product")
+      );
+    });
 
-    }
-
+    this.nameField.valueChanges.subscribe((newValue) =>
+      messageService.reportMessage(new Message(newValue || "(Empty"))
+    );
+  }
 }
