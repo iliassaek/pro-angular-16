@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { FormControl, NgForm } from "@angular/forms";
 import { Product } from "../model/product.model";
-import { Model } from "../model/repository.model"
-import { Message  } from "../messages/message.model"
+import { Model } from "../model/repository.model";
+import { Message } from "../messages/message.model";
 import { MessageService } from "../messages/message.service";
 import { MODES, SharedState } from "./sharedState.service";
 import { toObservable } from "@angular/core/rxjs-interop";
- 
+
 @Component({
   standalone: false,
   selector: "paForm",
@@ -18,7 +18,7 @@ export class FormComponent {
   editing: boolean = false;
   nameField = new FormControl(
     { value: "", disabled: false },
-    { updateOn: "blur" }
+    { updateOn: "change" }
   );
 
   constructor(
@@ -43,8 +43,11 @@ export class FormComponent {
       );
     });
 
-    this.nameField.valueChanges.subscribe((newValue) =>
-      messageService.reportMessage(new Message(newValue || "(Empty"))
-    );
+    this.nameField.valueChanges.subscribe((newValue) => {
+      messageService.reportMessage(new Message(newValue || "(Empty)"));
+      if (typeof newValue == "string" && newValue.length % 2 == 0) {
+        this.nameField.markAsPristine();
+      }
+    });
   }
 }
