@@ -34,6 +34,11 @@ export class FormComponent {
                 ? new Message(`Editing ${this.product.name}`)
                     : new Message("Creating New Product"));            
         });
+
+        this.nameField.valueChanges.subscribe(newValue =>
+            messageService.reportMessage(
+              new Message(newValue || "(Empty")));
+
     }
 
 }
