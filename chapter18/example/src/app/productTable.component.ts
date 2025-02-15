@@ -2,7 +2,7 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @angular-eslint/no-input-rename */
 /* eslint-disable @angular-eslint/component-selector */
-import { Component, Input, Signal } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { Product } from './product/product.model';
 import { Model } from './product/repository.model';
 import { PaIteratorDirective } from './iterator.directive';
@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaDiscountDisplayComponent } from "./discountDisplay.component";
 import { PaDiscountEditorComponent } from "./discountEditor.component";
-import { PaDiscountPipe } from "./discount.pipe";
 import { PaDiscountAmountDirective } from './discountAmount.directive';
 
 
@@ -23,14 +22,12 @@ import { PaDiscountAmountDirective } from './discountAmount.directive';
     FormsModule,
     PaDiscountDisplayComponent,
     PaDiscountEditorComponent,
-    PaDiscountPipe,
     PaDiscountAmountDirective,
 ],
 })
 export class ProductTableComponent {
-  
-  @Input({ alias: 'model', required: true })
-  dataModel!: Model;
+
+  constructor(private dataModel: Model) {}
 
   get Products(): Signal<Product[]> {
     return this.dataModel.Products;
