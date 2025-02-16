@@ -1,5 +1,11 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  NgForm,
+  Validators,
+} from "@angular/forms";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model";
 import { Message } from "../messages/message.model";
@@ -17,6 +23,8 @@ export class FormComponent {
   product: Product = new Product();
   editing: boolean = false;
 
+  keywordGroup = new FormArray([this.createKeywordFormControl()]);
+
   productForm: FormGroup = new FormGroup({
     name: new FormControl("", {
       validators: [
@@ -30,6 +38,7 @@ export class FormComponent {
     price: new FormControl("", {
       validators: [Validators.required, Validators.pattern("^[0-9.]+$")],
     }),
+    keywords: this.keywordGroup,
   });
 
   constructor(
@@ -46,6 +55,7 @@ export class FormComponent {
       } else {
         this.product = new Product();
       }
+      this.createKeywordFormControls(this.product.keywords?.length);
       this.productForm.reset(this.product);
       messageService.reportMessage(
         state.id
@@ -68,5 +78,16 @@ export class FormComponent {
     this.editing = true;
     this.product = new Product();
     this.productForm.reset();
+  }
+
+  createKeywordFormControls(count: number = 0) {
+    this.keywordGroup.clear();
+    for (let i = 0; i < count + 1; i++) {
+      this.keywordGroup.push(this.createKeywordFormControl());
+    }
+  }
+
+  createKeywordFormControl() {
+    return new FormControl();
   }
 }

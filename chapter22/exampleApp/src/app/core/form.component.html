@@ -29,6 +29,14 @@
         </ul>
     </div>
 
+    <div formGroupName="keywords">
+        <div class="form-group" *ngFor="let c of keywordGroup.controls; 
+                let i = index">
+            <label>Keyword {{ i + 1 }}</label>
+            <input class="form-control" [formControlName]="i" [value]="c.value" />
+        </div>
+    </div>
+
     <div class="mt-2">
         <button type="submit" class="btn btn-primary" [class.btn-warning]="editing" [disabled]="form.invalid">
             {{editing ? "Save" : "Create"}}
