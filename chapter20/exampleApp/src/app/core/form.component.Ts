@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormControl, NgForm } from "@angular/forms";
+import { FormControl, NgForm, Validators } from "@angular/forms";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model";
 import { Message } from "../messages/message.model";
@@ -18,9 +18,15 @@ export class FormComponent {
   editing: boolean = false;
   nameField = new FormControl(
     { value: "", disabled: false },
-    { updateOn: "change" }
+    {
+      updateOn: "change",
+      validators: [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern("^[A-Za-z ]+$"),
+      ],
+    }
   );
-
   constructor(
     private model: Model,
     private stateService: SharedState,
@@ -43,10 +49,12 @@ export class FormComponent {
       );
     });
 
-    this.nameField.valueChanges.subscribe((newValue) => {
-      messageService.reportMessage(new Message(newValue || "(Empty)"));
-      if (typeof newValue == "string" && newValue.length % 2 == 0) {
-        this.nameField.markAsPristine();
+    this.nameField.statusChanges.subscribe((newStatus) => {
+      if (newStatus == "INVALID" && this.nameField.errors != null) {
+        let errs = Object.keys(this.nameField.errors).join(", ");
+        messageService.reportMessage(new Message(`INVALID: ${errs}`));
+      } else {
+        messageService.reportMessage(new Message(newStatus));
       }
     });
   }
