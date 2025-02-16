@@ -1,4 +1,9 @@
 <div class="form-group">
     <label>Name</label>
-    <input class="form-control" name="name" [formControl]="nameField" />
+    <input class="form-control" name="name" [formControl]="nameField" #name="ngForm" />
+    <ul class="text-danger list-unstyled mt-1" *ngIf="name.dirty && name.invalid">
+        <li *ngFor="let err of name.errors | validationFormat:'name'">
+            {{ err }}
+        </li>
+    </ul>
 </div>

@@ -5,12 +5,12 @@ import { ModelModule } from "../model/model.module";
 import { TableComponent } from "./table.component";
 import { FormComponent } from "./form.component";
 import { SharedState } from "./sharedState.service";
+import { ValidationHelper } from "./validationHelper.pipe";
  
 @NgModule({
-    imports: [BrowserModule, FormsModule, ModelModule, 
-        ReactiveFormsModule],
-    declarations: [TableComponent, FormComponent],
-    exports: [ModelModule, TableComponent, FormComponent],
-    providers: [SharedState]
+  imports: [BrowserModule, FormsModule, ModelModule, ReactiveFormsModule],
+  declarations: [TableComponent, FormComponent, ValidationHelper],
+  exports: [ModelModule, TableComponent, FormComponent],
+  providers: [SharedState],
 })
-export class CoreModule { }
+export class CoreModule {}
