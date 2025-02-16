@@ -90,4 +90,12 @@ export class FormComponent {
   createKeywordFormControl() {
     return new FormControl();
   }
+
+  addKeywordControl() {
+    this.keywordGroup.push(this.createKeywordFormControl());
+  }
+
+  removeKeywordControl(index: number) {
+    this.keywordGroup.removeAt(index);
+  }
 }
