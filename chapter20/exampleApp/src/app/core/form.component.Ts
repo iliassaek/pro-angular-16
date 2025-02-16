@@ -15,23 +15,23 @@ import { toObservable } from "@angular/core/rxjs-interop";
 })
 export class FormComponent {
   product: Product = new Product();
-  categoryField: FormControl = new FormControl();
   editing: boolean = false;
-  nameField = new FormControl(
-    { value: "", disabled: false },
-    {
-      updateOn: "change",
+
+  productForm: FormGroup = new FormGroup({
+    name: new FormControl("", {
       validators: [
         Validators.required,
         Validators.minLength(3),
         Validators.pattern("^[A-Za-z ]+$"),
       ],
-    }
-  );
-  productForm: FormGroup = new FormGroup({
-    name: this.nameField,
-    category: this.categoryField,
+      updateOn: "change",
+    }),
+    category: new FormControl("", { validators: Validators.required }),
+    price: new FormControl("", {
+      validators: [Validators.required, Validators.pattern("^[0-9.]+$")],
+    }),
   });
+
   constructor(
     private model: Model,
     private stateService: SharedState,
@@ -53,20 +53,20 @@ export class FormComponent {
           : new Message("Creating New Product")
       );
     });
+  }
 
-    this.productForm.statusChanges.subscribe(newStatus => {
-      if (newStatus == "INVALID") {
-          let invalidControls: string[] = [];
-          for (let controlName in this.productForm.controls) {
-              if (this.productForm.controls[controlName].invalid) {
-                  invalidControls.push(controlName)
-              }
-          }
-          messageService.reportMessage(
-              new Message(`INVALID: ${invalidControls.join(", ")}`))
-      } else {
-          messageService.reportMessage(new Message(newStatus));    
-      }    
-  })  
+  submitForm() {
+    if (this.productForm.valid) {
+      Object.assign(this.product, this.productForm.value);
+      this.model.saveProduct(this.product);
+      this.product = new Product();
+      this.productForm.reset();
+    }
+  }
+
+  resetForm() {
+    this.editing = true;
+    this.product = new Product();
+    this.productForm.reset();
   }
 }
