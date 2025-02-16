@@ -15,6 +15,7 @@ import { toObservable } from "@angular/core/rxjs-interop";
 })
 export class FormComponent {
   product: Product = new Product();
+  categoryField: FormControl = new FormControl();
   editing: boolean = false;
   nameField = new FormControl(
     { value: "", disabled: false },
@@ -42,6 +43,7 @@ export class FormComponent {
         this.product = new Product();
       }
       this.nameField.setValue(this.product.name ?? "");
+      this.categoryField.setValue(this.product.category);
       messageService.reportMessage(
         state.id
           ? new Message(`Editing ${this.product.name}`)
@@ -50,11 +52,10 @@ export class FormComponent {
     });
 
     this.nameField.statusChanges.subscribe((newStatus) => {
-      if (newStatus == "INVALID" && this.nameField.errors != null) {
-        let errs = Object.keys(this.nameField.errors).join(", ");
-        messageService.reportMessage(new Message(`INVALID: ${errs}`));
+      if (newStatus == "INVALID") {
+        this.categoryField.disable();
       } else {
-        messageService.reportMessage(new Message(newStatus));
+        this.categoryField.enable();
       }
     });
   }
