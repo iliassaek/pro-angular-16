@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormControl, NgForm, Validators } from "@angular/forms";
+import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model";
 import { Message } from "../messages/message.model";
@@ -28,6 +28,10 @@ export class FormComponent {
       ],
     }
   );
+  productForm: FormGroup = new FormGroup({
+    name: this.nameField,
+    category: this.categoryField,
+  });
   constructor(
     private model: Model,
     private stateService: SharedState,
@@ -42,8 +46,7 @@ export class FormComponent {
       } else {
         this.product = new Product();
       }
-      this.nameField.setValue(this.product.name ?? "");
-      this.categoryField.setValue(this.product.category);
+      this.productForm.reset(this.product);
       messageService.reportMessage(
         state.id
           ? new Message(`Editing ${this.product.name}`)
@@ -51,12 +54,19 @@ export class FormComponent {
       );
     });
 
-    this.nameField.statusChanges.subscribe((newStatus) => {
+    this.productForm.statusChanges.subscribe(newStatus => {
       if (newStatus == "INVALID") {
-        this.categoryField.disable();
+          let invalidControls: string[] = [];
+          for (let controlName in this.productForm.controls) {
+              if (this.productForm.controls[controlName].invalid) {
+                  invalidControls.push(controlName)
+              }
+          }
+          messageService.reportMessage(
+              new Message(`INVALID: ${invalidControls.join(", ")}`))
       } else {
-        this.categoryField.enable();
-      }
-    });
+          messageService.reportMessage(new Message(newStatus));    
+      }    
+  })  
   }
 }
