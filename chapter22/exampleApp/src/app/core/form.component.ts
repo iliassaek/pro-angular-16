@@ -13,6 +13,7 @@ import { MessageService } from "../messages/message.service";
 import { MODES, SharedState } from "./sharedState.service";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { FilteredFormArray } from "./filteredFormArray";
+import { LimitValidator } from "../validation/limit";
 
 @Component({
   standalone: false,
@@ -37,7 +38,11 @@ export class FormComponent {
     }),
     category: new FormControl("", { validators: Validators.required }),
     price: new FormControl("", {
-      validators: [Validators.required, Validators.pattern("^[0-9.]+$")],
+      validators: [
+        Validators.required,
+        Validators.pattern("^[0-9.]+$"),
+        LimitValidator.Limit(300),
+      ],
     }),
     keywords: this.keywordGroup,
   });

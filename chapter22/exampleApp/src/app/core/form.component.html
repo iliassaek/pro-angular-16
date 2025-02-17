@@ -23,7 +23,7 @@
         <label>Price</label>
         <input class="form-control" formControlName="price" />
         <ul class="text-danger list-unstyled mt-1">
-            <li *validationErrors="productForm; control:'price';label:'mimi'; let err">
+            <li *validationErrors="productForm; control:'price'; let err">
                 {{ err }}
             </li>
         </ul>
