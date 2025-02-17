@@ -88,7 +88,9 @@ export class FormComponent {
   }
 
   createKeywordFormControl() {
-    return new FormControl();
+    return new FormControl("", {
+      validators: Validators.pattern("^[A-Za-z ]+$"),
+    });
   }
 
   addKeywordControl() {
