@@ -12,6 +12,7 @@ import { Message } from "../messages/message.model";
 import { MessageService } from "../messages/message.service";
 import { MODES, SharedState } from "./sharedState.service";
 import { toObservable } from "@angular/core/rxjs-interop";
+import { FilteredFormArray } from "./filteredFormArray";
 
 @Component({
   standalone: false,
@@ -23,7 +24,7 @@ export class FormComponent {
   product: Product = new Product();
   editing: boolean = false;
 
-  keywordGroup = new FormArray([this.createKeywordFormControl()]);
+  keywordGroup = new FilteredFormArray([this.createKeywordFormControl()]);
 
   productForm: FormGroup = new FormGroup({
     name: new FormControl("", {
