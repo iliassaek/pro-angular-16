@@ -38,6 +38,9 @@ export class ValidationHelper {
                 ${errors['hilow'].low} and
                 ${errors['hilow'].high}`);
           break;
+        case 'unique':
+          messages.push(`The ${name} must be unique`);
+          break;
       }
     }
     return messages;

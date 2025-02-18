@@ -1,46 +1,49 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import {
   FormArray,
   FormControl,
   FormGroup,
   NgForm,
   Validators,
-} from "@angular/forms";
-import { Product } from "../model/product.model";
-import { Model } from "../model/repository.model";
-import { Message } from "../messages/message.model";
-import { MessageService } from "../messages/message.service";
-import { MODES, SharedState } from "./sharedState.service";
-import { toObservable } from "@angular/core/rxjs-interop";
-import { FilteredFormArray } from "./filteredFormArray";
-import { LimitValidator } from "../validation/limit";
+} from '@angular/forms';
+import { Product } from '../model/product.model';
+import { Model } from '../model/repository.model';
+import { Message } from '../messages/message.model';
+import { MessageService } from '../messages/message.service';
+import { MODES, SharedState } from './sharedState.service';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { FilteredFormArray } from './filteredFormArray';
+import { LimitValidator } from '../validation/limit';
+import { UniqueValidator } from '../validation/unique';
 
 @Component({
   standalone: false,
-  selector: "paForm",
-  templateUrl: "form.component.html",
-  styleUrls: ["form.component.css"],
+  selector: 'paForm',
+  templateUrl: 'form.component.html',
+  styleUrls: ['form.component.css'],
 })
 export class FormComponent {
   product: Product = new Product();
   editing: boolean = false;
 
-  keywordGroup = new FilteredFormArray([this.createKeywordFormControl()]);
+  keywordGroup = new FilteredFormArray([this.createKeywordFormControl()], {
+    validators: UniqueValidator.unique(),
+  });
 
   productForm: FormGroup = new FormGroup({
-    name: new FormControl("", {
+    name: new FormControl('', {
       validators: [
         Validators.required,
         Validators.minLength(3),
-        Validators.pattern("^[A-Za-z ]+$"),
+        Validators.pattern('^[A-Za-z ]+$'),
       ],
-      updateOn: "change",
+      updateOn: 'change',
     }),
-    category: new FormControl("", { validators: Validators.required }),
-    price: new FormControl("", {
+    category: new FormControl('', { validators: Validators.required }),
+    price: new FormControl('', {
       validators: [
         Validators.required,
-        Validators.pattern("^[0-9.]+$"),
+        Validators.pattern('^[0-9.]+$'),
         LimitValidator.Limit(300),
       ],
     }),
@@ -66,7 +69,7 @@ export class FormComponent {
       messageService.reportMessage(
         state.id
           ? new Message(`Editing ${this.product.name}`)
-          : new Message("Creating New Product")
+          : new Message('Creating New Product')
       );
     });
   }
@@ -94,8 +97,8 @@ export class FormComponent {
   }
 
   createKeywordFormControl() {
-    return new FormControl("", {
-      validators: Validators.pattern("^[A-Za-z ]+$"),
+    return new FormControl('', {
+      validators: Validators.pattern('^[A-Za-z ]+$'),
     });
   }
 
