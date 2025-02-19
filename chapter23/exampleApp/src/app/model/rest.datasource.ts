@@ -1,7 +1,7 @@
 import { Injectable, Signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from './product.model';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 
 export const REST_URL = `http://${location.hostname}:3500/products`;
 
@@ -40,6 +40,8 @@ export class RestDataSource {
         'Access-Key': '<secret>',
         'Application-Name': 'exampleApp',
       }),
-    });
+    }).pipe(catchError((error: Response) => {
+      throw(`Network Error: ${error.statusText} (${error.status})`)
+  })); ;
   }
 }
