@@ -9,8 +9,7 @@ export class Model {
   private locator = (p: Product, id?: number) => p.id == id;
 
   constructor(private dataSource: RestDataSource) {
-    this.dataSource.getData()
-    .subscribe(data => this.products.set(data));
+    this.dataSource.getData().subscribe((data) => this.products.set(data));
   }
 
   get Products(): Signal<Product[]> {
@@ -23,37 +22,35 @@ export class Model {
 
   saveProduct(product: Product) {
     if (product.id == 0 || product.id == undefined) {
-      product.id = this.generateID();
-      // Return a new array with the new product appended.
-      this.products.update((prods) => [...prods, product]);
+      this.dataSource
+        .saveProduct(product)
+        .subscribe((p) => this.products.update((prods) => [...prods, product]));
     } else {
-      // Return a new array with the product updated.
-      this.products.update((prods) => {
-        const index = prods.findIndex((p) => this.locator(p, product.id));
-        if (index > -1) {
-          return [...prods.slice(0, index), product, ...prods.slice(index + 1)];
-        }
-        return prods;
+      this.dataSource.updateProduct(product).subscribe(() => {
+        this.products.update((prods) => {
+          const index = prods.findIndex((p) => this.locator(p, product.id));
+          if (index !== -1) {
+            const updatedProducts = [...prods];
+            updatedProducts.splice(index, 1, product);
+            return updatedProducts;
+          }
+          return prods;
+        });
       });
     }
   }
 
   deleteProduct(id: number) {
-    // Return a new array without the deleted product.
-    this.products.update((prods) => {
-      const index = prods.findIndex((p) => this.locator(p, id));
-      if (index > -1) {
-        return [...prods.slice(0, index), ...prods.slice(index + 1)];
-      }
-      return prods;
+    this.dataSource.deleteProduct(id).subscribe(() => {
+      this.products.update((prods) => {
+        const index = prods.findIndex((p) => this.locator(p, id));
+        if (index > -1) {
+          const updatedProducts = [...prods];
+          updatedProducts.splice(index, 1);
+          return updatedProducts;
+        }
+        return prods;
+      });
     });
-  }
-
-  private generateID(): number {
-    let candidate = 100;
-    while (this.getProduct(candidate) != null) {
-      candidate++;
-    }
-    return candidate;
   }
 }

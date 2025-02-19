@@ -12,4 +12,16 @@ export class RestDataSource {
   getData(): Observable<Product[]> {
     return this.http.get<Product[]>(REST_URL);
   }
+
+  saveProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(REST_URL, product);
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(`${REST_URL}/${product.id}`, product);
+  }
+
+  deleteProduct(id: number): Observable<Product> {
+    return this.http.delete<Product>(`${REST_URL}/${id}`);
+  }
 }
