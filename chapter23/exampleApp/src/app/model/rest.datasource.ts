@@ -1,5 +1,5 @@
 import { Injectable, Signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from './product.model';
 import { Observable } from 'rxjs';
 
@@ -36,6 +36,10 @@ export class RestDataSource {
   ): Observable<T> {
     return this.http.request<T>(verb, url, {
       body: body,
+      headers: new HttpHeaders({
+        'Access-Key': '<secret>',
+        'Application-Name': 'exampleApp',
+      }),
     });
   }
 }
