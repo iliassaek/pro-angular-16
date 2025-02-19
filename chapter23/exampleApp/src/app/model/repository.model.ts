@@ -1,14 +1,16 @@
 import { Injectable, Signal, signal } from '@angular/core';
 import { Product } from './product.model';
 import { StaticDataSource } from './static.datasource';
+import { RestDataSource } from './rest.datasource';
 
 @Injectable()
 export class Model {
   private products = signal<Product[]>([]);
   private locator = (p: Product, id?: number) => p.id == id;
 
-  constructor(private dataSource: StaticDataSource) {
-    this.products.set(this.dataSource.getData());
+  constructor(private dataSource: RestDataSource) {
+    this.dataSource.getData()
+    .subscribe(data => this.products.set(data));
   }
 
   get Products(): Signal<Product[]> {
