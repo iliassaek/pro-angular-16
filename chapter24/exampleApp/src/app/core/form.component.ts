@@ -16,6 +16,7 @@ import { FilteredFormArray } from './filteredFormArray';
 import { LimitValidator } from '../validation/limit';
 import { UniqueValidator } from '../validation/unique';
 import { ProhibitedValidator } from '../validation/prohibited';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -45,7 +46,7 @@ export class FormComponent {
       validators: Validators.required,
       asyncValidators: ProhibitedValidator.prohibited(),
     }),
-    
+
     price: new FormControl('', {
       validators: [
         Validators.required,
@@ -56,28 +57,8 @@ export class FormComponent {
     keywords: this.keywordGroup,
   });
 
-  constructor(
-    private model: Model,
-    private stateService: SharedState,
-    messageService: MessageService
-  ) {
-    toObservable(stateService.state).subscribe((state) => {
-      this.editing = state.mode == MODES.EDIT;
-      if (this.editing && state.id) {
-        this.product = Product.fromProduct(
-          this.model.getProduct(state.id) ?? new Product()
-        );
-      } else {
-        this.product = new Product();
-      }
-      this.createKeywordFormControls(this.product.keywords?.length);
-      this.productForm.reset(this.product);
-      messageService.reportMessage(
-        state.id
-          ? new Message(`Editing ${this.product.name}`)
-          : new Message('Creating New Product')
-      );
-    });
+  constructor(private model: Model, activeRoute: ActivatedRoute) {
+    this.editing = activeRoute.snapshot.url[1].path == 'edit';
   }
 
   submitForm() {
