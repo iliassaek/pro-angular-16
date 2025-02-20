@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -53,9 +53,14 @@ export class FormComponent {
     keywords: this.keywordGroup,
   });
 
-  constructor(private model: Model, activeRoute: ActivatedRoute) {
-    this.editing = activeRoute.snapshot.params['mode'] == 'edit';
+  constructor(private model: Model) {}
+
+  ngOnInit() {
+    this.editing = this.mode == 'edit';
   }
+
+  @Input()
+  mode?: string;
 
   submitForm() {
     if (this.productForm.valid) {
