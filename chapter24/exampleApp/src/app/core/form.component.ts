@@ -8,10 +8,6 @@ import {
 } from '@angular/forms';
 import { Product } from '../model/product.model';
 import { Model } from '../model/repository.model';
-import { Message } from '../messages/message.model';
-import { MessageService } from '../messages/message.service';
-import { MODES, SharedState } from './sharedState.service';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { FilteredFormArray } from './filteredFormArray';
 import { LimitValidator } from '../validation/limit';
 import { UniqueValidator } from '../validation/unique';
@@ -58,7 +54,7 @@ export class FormComponent {
   });
 
   constructor(private model: Model, activeRoute: ActivatedRoute) {
-    this.editing = activeRoute.snapshot.url[1].path == 'edit';
+    this.editing = activeRoute.snapshot.params['mode'] == 'edit';
   }
 
   submitForm() {
