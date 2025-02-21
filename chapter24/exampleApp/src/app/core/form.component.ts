@@ -10,6 +10,7 @@ import { FilteredFormArray } from './filteredFormArray';
 import { LimitValidator } from '../validation/limit';
 import { UniqueValidator } from '../validation/unique';
 import { ProhibitedValidator } from '../validation/prohibited';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -50,7 +51,7 @@ export class FormComponent {
     keywords: this.keywordGroup,
   });
 
-  constructor(private model: Model) {}
+  constructor(private model: Model, private router: Router) {}
 
   ngOnInit() {
     this.editing = this.mode == 'edit';
@@ -91,6 +92,7 @@ export class FormComponent {
       this.model.saveProduct(this.product);
       this.product = new Product();
       this.productForm.reset();
+      this.router.navigateByUrl("/");
     }
   }
 
