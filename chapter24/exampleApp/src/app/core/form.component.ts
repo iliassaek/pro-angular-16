@@ -12,7 +12,6 @@ import { FilteredFormArray } from './filteredFormArray';
 import { LimitValidator } from '../validation/limit';
 import { UniqueValidator } from '../validation/unique';
 import { ProhibitedValidator } from '../validation/prohibited';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -57,10 +56,21 @@ export class FormComponent {
 
   ngOnInit() {
     this.editing = this.mode == 'edit';
+    if (this.id != null) {
+      let idVal = parseInt(this.id);
+      Object.assign(
+        this.product,
+        this.model.getProduct(idVal) || new Product()
+      );
+      this.productForm.patchValue(this.product);
+    }
   }
 
   @Input()
   mode?: string;
+
+  @Input()
+  id?: string;
 
   submitForm() {
     if (this.productForm.valid) {
