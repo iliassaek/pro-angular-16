@@ -9,7 +9,7 @@ import { MODES, SharedState } from './sharedState.service';
   templateUrl: 'table.component.html',
 })
 export class TableComponent {
-  constructor(private model: Model, private state: SharedState) {}
+  constructor(private model: Model) {}
 
   getProduct(key: number): Product | undefined {
     return this.model.getProduct(key);
@@ -23,13 +23,5 @@ export class TableComponent {
     if (key != undefined) {
       this.model.deleteProduct(key);
     }
-  }
-
-  editProduct(key?: number) {
-    this.state.update(MODES.EDIT, key);
-  }
-
-  createProduct() {
-    this.state.update(MODES.CREATE);
   }
 }
