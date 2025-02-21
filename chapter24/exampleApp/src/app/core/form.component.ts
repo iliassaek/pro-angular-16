@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {
-  FormArray,
   FormControl,
   FormGroup,
-  NgForm,
   Validators,
 } from '@angular/forms';
 import { Product } from '../model/product.model';
@@ -62,6 +60,12 @@ export class FormComponent {
         this.product,
         this.model.getProduct(idVal) || new Product()
       );
+      this.product.name = this.optionalName ?? this.product.name;
+      this.product.category = this.optionalCategory 
+          ?? this.product.category;
+      if (this.optionalPrice != undefined) {                
+          this.product.price = Number.parseFloat(this.optionalPrice);
+      }
       this.productForm.patchValue(this.product);
     }
   }
@@ -71,6 +75,15 @@ export class FormComponent {
 
   @Input()
   id?: string;
+
+  @Input('name')
+  optionalName?: string;
+
+  @Input('category')
+  optionalCategory?: string;
+
+  @Input('price')
+  optionalPrice?: string;
 
   submitForm() {
     if (this.productForm.valid) {
