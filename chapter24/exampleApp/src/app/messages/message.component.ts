@@ -1,6 +1,7 @@
-import { Component, Signal, computed } from '@angular/core';
+import { Component, Signal, computed, signal } from '@angular/core';
 import { MessageService } from './message.service';
 import { Message } from './message.model';
+import { NavigationCancel, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -8,11 +9,22 @@ import { Message } from './message.model';
   templateUrl: 'message.component.html',
 })
 export class MessageComponent {
-  lastMessage!: Signal<Message>;
+  lastMessage!: Signal<Message | undefined>;
 
-  constructor(messageService: MessageService) {
+  constructor(messageService: MessageService, router: Router) {
+    let clearedLen = signal(-1);
+
+    router.events.subscribe((ev) => {
+      if (ev instanceof NavigationCancel || ev instanceof NavigationEnd) {
+        clearedLen.set(messageService.messages().length);
+      }
+    });
+
     this.lastMessage = computed(() => {
-      return messageService.messages()[messageService.messages().length - 1];
+      if (messageService.messages().length > clearedLen()) {
+        return messageService.messages()[messageService.messages().length - 1];
+      }
+      return undefined;
     });
   }
 }
