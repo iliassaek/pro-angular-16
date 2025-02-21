@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -61,13 +61,9 @@ export class FormComponent {
         this.product,
         this.model.getProduct(idVal) || new Product()
       );
-      this.product.name = this.optionalName ?? this.product.name;
-      this.product.category = this.optionalCategory 
-          ?? this.product.category;
-      if (this.optionalPrice != undefined) {                
-          this.product.price = Number.parseFloat(this.optionalPrice);
-      }
       this.productForm.patchValue(this.product);
+      this.nextId.set(this.model.getNextProductId(idVal));
+      this.previousId.set(this.model.getPreviousProductid(idVal));            
     }
   }
 
@@ -77,14 +73,8 @@ export class FormComponent {
   @Input()
   id?: string;
 
-  @Input('name')
-  optionalName?: string;
-
-  @Input('category')
-  optionalCategory?: string;
-
-  @Input('price')
-  optionalPrice?: string;
+  nextId = signal(0);
+  previousId = signal(0);
 
   submitForm() {
     if (this.productForm.valid) {

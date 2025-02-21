@@ -53,4 +53,30 @@ export class Model {
       });
     });
   }
+
+  getNextProductId(id?: number): number {
+    let nextId = 0;
+    let index = this.products().findIndex((p) => this.locator(p, id));
+    if (index > -1) {
+      nextId =
+        this.products()[this.products().length > index + 1 ? index + 1 : 0]
+          .id ?? 0;
+    } else {
+      nextId = id || 0;
+    }
+    return nextId;
+  }
+
+  getPreviousProductid(id?: number): number {
+    let nextId = 0;
+    let index = this.products().findIndex((p) => this.locator(p, id));
+    if (index > -1) {
+      nextId =
+        this.products()[index > 0 ? index - 1 : this.products().length - 1]
+          .id ?? 0;
+    } else {
+      nextId = id || 0;
+    }
+    return nextId;
+  }
 }
