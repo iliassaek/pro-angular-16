@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-auto">
             <div class="d-grid gap-2">
-                <button class="btn btn-secondary" routerLink="/" routerLinkActive="bg-primary">
+                <button class="btn btn-secondary" routerLink="/table" routerLinkActive="bg-primary"
+                    [routerLinkActiveOptions]="{exact: true}">
                     All
                 </button>
                 <button *ngFor="let category of Categories()" class="btn btn-secondary"
