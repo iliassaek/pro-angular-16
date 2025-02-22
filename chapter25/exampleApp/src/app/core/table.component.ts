@@ -1,7 +1,6 @@
-import { Component, Signal } from '@angular/core';
+import { Component, computed, Input, Signal } from '@angular/core';
 import { Product } from '../model/product.model';
 import { Model } from '../model/repository.model';
-import { MODES, SharedState } from './sharedState.service';
 
 @Component({
   standalone: false,
@@ -9,6 +8,9 @@ import { MODES, SharedState } from './sharedState.service';
   templateUrl: 'table.component.html',
 })
 export class TableComponent {
+  @Input()
+  category?: string;
+
   constructor(private model: Model) {}
 
   getProduct(key: number): Product | undefined {
@@ -16,7 +18,22 @@ export class TableComponent {
   }
 
   get Products(): Signal<Product[]> {
-    return this.model.Products;
+    return computed(() => {
+      return this.model
+        .Products()
+        .filter((p) => this.category == null || p.category == this.category);
+    });
+  }
+
+  get Categories(): Signal<string[]> {
+    return computed(() => {
+      return this.model
+        .Products()
+        .map((p) => p.category)
+        .filter(
+          (c, index, arr) => c != undefined && arr.indexOf(c) == index
+        ) as string[];
+    });
   }
 
   deleteProduct(key?: number) {
