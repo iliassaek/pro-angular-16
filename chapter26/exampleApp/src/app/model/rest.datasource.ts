@@ -1,7 +1,7 @@
 import { Injectable, Signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from './product.model';
-import { catchError, Observable } from 'rxjs';
+import { catchError, delay, Observable } from 'rxjs';
 
 export const REST_URL = `http://${location.hostname}:3500/products`;
 
@@ -10,7 +10,7 @@ export class RestDataSource {
   constructor(private http: HttpClient) {}
 
   getData(): Observable<Product[]> {
-    return this.sendRequest<Product[]>('GET', REST_URL);
+    return this.sendRequest<Product[]>('GET', REST_URL).pipe(delay(5000));
   }
 
   saveProduct(product: Product): Observable<Product> {
@@ -34,14 +34,18 @@ export class RestDataSource {
     url: string,
     body?: Product
   ): Observable<T> {
-    return this.http.request<T>(verb, url, {
-      body: body,
-      headers: new HttpHeaders({
-        'Access-Key': '<secret>',
-        'Application-Name': 'exampleApp',
-      }),
-    }).pipe(catchError((error: Response) => {
-      throw(`Network Error: ${error.statusText} (${error.status})`)
-  })); ;
+    return this.http
+      .request<T>(verb, url, {
+        body: body,
+        headers: new HttpHeaders({
+          'Access-Key': '<secret>',
+          'Application-Name': 'exampleApp',
+        }),
+      })
+      .pipe(
+        catchError((error: Response) => {
+          throw `Network Error: ${error.statusText} (${error.status})`;
+        })
+      );
   }
 }
