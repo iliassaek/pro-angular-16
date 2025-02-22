@@ -53,7 +53,7 @@ export class FormComponent {
 
   constructor(private model: Model, private router: Router) {}
 
-  ngOnInit() {
+  ngOnChanges() {
     this.editing = this.mode == 'edit';
     if (this.id != null) {
       let idVal = parseInt(this.id);
