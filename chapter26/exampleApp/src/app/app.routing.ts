@@ -7,18 +7,28 @@ import { CategoryCountComponent } from './core/categoryCount.component';
 import { ModelResolver } from './model/model.resolver';
 
 const childRoutes: Routes = [
-  {   path: "",
-      children: [{ path: "products", component: ProductCountComponent },
-                 { path: "categories", 
-                      component: CategoryCountComponent },
-                 { path: "", component: ProductCountComponent }],
-      resolve: { model: mapToResolve(ModelResolver) }
-  }
+  {
+    path: '',
+    children: [
+      { path: 'products', component: ProductCountComponent },
+      { path: 'categories', component: CategoryCountComponent },
+      { path: '', component: ProductCountComponent },
+    ],
+    resolve: { model: mapToResolve(ModelResolver) },
+  },
 ];
 
 const routes: Routes = [
-  { path: 'form/:mode/:id', component: FormComponent },
-  { path: 'form/:mode', component: FormComponent },
+  {
+    path: 'form/:mode/:id',
+    component: FormComponent,
+    resolve: { model: mapToResolve(ModelResolver) },
+  },
+  {
+    path: 'form/:mode',
+    component: FormComponent,
+    resolve: { model: mapToResolve(ModelResolver) },
+  },
   { path: 'does', redirectTo: '/form/create', pathMatch: 'prefix' },
   {
     path: 'table',
