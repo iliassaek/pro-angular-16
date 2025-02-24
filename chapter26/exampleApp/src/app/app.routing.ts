@@ -1,10 +1,16 @@
-import { Routes, RouterModule, mapToResolve } from '@angular/router';
+import {
+  Routes,
+  RouterModule,
+  mapToResolve,
+  mapToCanActivate,
+} from '@angular/router';
 import { TableComponent } from './core/table.component';
 import { FormComponent } from './core/form.component';
 import { NotFoundComponent } from './core/notFoundComponent';
 import { ProductCountComponent } from './core/productCount.component';
 import { CategoryCountComponent } from './core/categoryCount.component';
 import { ModelResolver } from './model/model.resolver';
+import { TermsGuard } from './terms.guard';
 
 const childRoutes: Routes = [
   {
@@ -27,7 +33,8 @@ const routes: Routes = [
   {
     path: 'form/:mode',
     component: FormComponent,
-    resolve: { model: mapToResolve(ModelResolver) },
+    resolve: { model: ModelResolver },
+    canActivate: mapToCanActivate([TermsGuard]),
   },
   { path: 'does', redirectTo: '/form/create', pathMatch: 'prefix' },
   {
