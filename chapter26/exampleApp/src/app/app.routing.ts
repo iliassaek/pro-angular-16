@@ -3,18 +3,20 @@ import {
   RouterModule,
   mapToResolve,
   mapToCanActivate,
+  mapToCanActivateChild,
 } from '@angular/router';
 import { TableComponent } from './core/table.component';
 import { FormComponent } from './core/form.component';
-import { NotFoundComponent } from './core/notFoundComponent';
 import { ProductCountComponent } from './core/productCount.component';
 import { CategoryCountComponent } from './core/categoryCount.component';
 import { ModelResolver } from './model/model.resolver';
 import { TermsGuard } from './terms.guard';
+import { NotFoundComponent } from './core/notFoundComponent';
 
 const childRoutes: Routes = [
   {
     path: '',
+    canActivateChild: mapToCanActivateChild([TermsGuard]),
     children: [
       { path: 'products', component: ProductCountComponent },
       { path: 'categories', component: CategoryCountComponent },
@@ -37,14 +39,6 @@ const routes: Routes = [
     canActivate: mapToCanActivate([TermsGuard]),
   },
   { path: 'does', redirectTo: '/form/create', pathMatch: 'prefix' },
-  {
-    path: 'table',
-    component: TableComponent,
-    children: [
-      { path: 'products', component: ProductCountComponent },
-      { path: 'categories', component: CategoryCountComponent },
-    ],
-  },
   { path: 'table', component: TableComponent, children: childRoutes },
   { path: 'table/:category', component: TableComponent, children: childRoutes },
   { path: '', redirectTo: '/table', pathMatch: 'full' },
