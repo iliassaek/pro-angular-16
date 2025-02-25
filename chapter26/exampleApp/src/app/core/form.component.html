@@ -9,7 +9,7 @@
     </button>    
 </div>
 
-<form [formGroup]="productForm" #form="ngForm" (ngSubmit)="submitForm()" (reset)="resetForm()">
+<form [formGroup]="productForm" #form="ngForm" (ngSubmit)="submitForm()">
     <div class="form-group">
         <label>Name</label>
         <input class="form-control" formControlName="name" />
