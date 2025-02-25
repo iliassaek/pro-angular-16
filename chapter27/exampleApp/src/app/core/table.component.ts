@@ -1,6 +1,7 @@
 import { Component, computed, Input, Signal } from '@angular/core';
 import { Product } from '../model/product.model';
 import { Model } from '../model/repository.model';
+import { PlatformService } from '../plateform.service';
 
 @Component({
   standalone: false,
@@ -8,10 +9,11 @@ import { Model } from '../model/repository.model';
   templateUrl: 'table.component.html',
 })
 export class TableComponent {
+
   @Input()
   category?: string;
 
-  constructor(private model: Model) {}
+  constructor(private model: Model, private ps: PlatformService) {}
 
   getProduct(key: number): Product | undefined {
     return this.model.getProduct(key);
@@ -41,4 +43,6 @@ export class TableComponent {
       this.model.deleteProduct(key);
     }
   }
+
+  get isServer() { return this.ps.isServer }
 }
