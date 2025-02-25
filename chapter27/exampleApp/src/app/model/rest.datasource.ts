@@ -2,31 +2,36 @@ import { Injectable, Signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from './product.model';
 import { catchError, delay, Observable } from 'rxjs';
-
-export const REST_URL = `http://${location.hostname}:3500/products`;
+import { PlatformService } from '../plateform.service';
 
 @Injectable()
 export class RestDataSource {
-  constructor(private http: HttpClient) {}
+  private REST_URL: string;
+
+  constructor(private http: HttpClient, ps: PlatformService) {
+    this.REST_URL = ps.isServer
+      ? 'http://localhost:3500/products'
+      : `http://${location.hostname}:3500/products`;
+  }
 
   getData(): Observable<Product[]> {
-    return this.sendRequest<Product[]>('GET', REST_URL);
+    return this.sendRequest<Product[]>('GET', this.REST_URL);
   }
 
   saveProduct(product: Product): Observable<Product> {
-    return this.sendRequest<Product>('POST', REST_URL, product);
+    return this.sendRequest<Product>('POST', this.REST_URL, product);
   }
 
   updateProduct(product: Product): Observable<Product> {
     return this.sendRequest<Product>(
       'PUT',
-      `${REST_URL}/${product.id}`,
+      `${this.REST_URL}/${product.id}`,
       product
     );
   }
 
   deleteProduct(id: number): Observable<Product> {
-    return this.sendRequest<Product>('DELETE', `${REST_URL}/${id}`);
+    return this.sendRequest<Product>('DELETE', `${this.REST_URL}/${id}`);
   }
 
   private sendRequest<T>(

@@ -7,11 +7,12 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { TermsGuard } from './terms.guard';
 import { LoadGuard } from './load.guard';
+import { PlatformService } from './plateform.service';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, ModelModule, CoreModule, MessageModule, routing],
-  providers: [TermsGuard, LoadGuard, provideClientHydration(withEventReplay())],
+  providers: [TermsGuard, LoadGuard, provideClientHydration(),PlatformService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
