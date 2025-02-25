@@ -57,4 +57,5 @@ const routes: Routes = [
 
 export const routing = RouterModule.forRoot(routes, {
   bindToComponentInputs: true,
+  initialNavigation: 'enabledBlocking'
 });
