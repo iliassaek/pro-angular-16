@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import {
   BrowserModule,
-  provideClientHydration,
-  withEventReplay,
+  provideClientHydration
 } from '@angular/platform-browser';
 import { ModelModule } from './model/model.module';
 import { CoreModule } from './core/core.module';
