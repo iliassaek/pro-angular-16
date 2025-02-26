@@ -12,6 +12,7 @@ import { ProductCountComponent } from "./productCount.component";
 import { CategoryCountComponent } from "./categoryCount.component";
 import { NotFoundComponent } from './notFoundComponent';
 import { UnsavedGuard } from './unsaved.guard';
+import { MaterialFeatures } from '../material.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { UnsavedGuard } from './unsaved.guard';
     ModelModule,
     ReactiveFormsModule,
     RouterModule,
+    MaterialFeatures
   ],
   declarations: [
     TableComponent,
