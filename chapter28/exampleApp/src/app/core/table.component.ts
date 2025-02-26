@@ -45,4 +45,6 @@ export class TableComponent {
   }
 
   get isServer() { return this.ps.isServer }
+
+  colsAndRows: string[] = ['id', 'name', 'category', 'price', 'buttons'];
 }
