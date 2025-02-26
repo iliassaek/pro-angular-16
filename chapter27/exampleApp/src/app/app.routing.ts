@@ -15,6 +15,7 @@ import { TermsGuard } from './terms.guard';
 import { NotFoundComponent } from './core/notFoundComponent';
 import { UnsavedGuard } from './core/unsaved.guard';
 import { LoadGuard } from './load.guard';
+import { BrowserGuard } from './browser.guard';
 
 const childRoutes: Routes = [
   {
@@ -32,13 +33,14 @@ const childRoutes: Routes = [
 const routes: Routes = [
   {
     path: 'ondemand',
-    canActivate: mapToCanActivate([LoadGuard]),
+    canActivate: mapToCanActivate([BrowserGuard, LoadGuard]),
     loadChildren: () =>
       import('./ondemand/ondemand.module').then((m) => m.OndemandModule),
   },
   {
     path: 'form/:mode/:id',
     component: FormComponent,
+    canActivate: mapToCanActivate([BrowserGuard]),
     resolve: { model: mapToResolve(ModelResolver) },
     canDeactivate: mapToCanDeactivate([UnsavedGuard]),
   },
@@ -46,7 +48,7 @@ const routes: Routes = [
     path: 'form/:mode',
     component: FormComponent,
     resolve: { model: ModelResolver },
-    canActivate: mapToCanActivate([TermsGuard]),
+    canActivate: mapToCanActivate([BrowserGuard, TermsGuard]),
   },
   { path: 'does', redirectTo: '/form/create', pathMatch: 'prefix' },
   { path: 'table', component: TableComponent, children: childRoutes },
