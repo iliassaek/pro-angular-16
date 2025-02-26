@@ -6,10 +6,11 @@ import {
 } from '@angular/router';
 import { MessageService } from './messages/message.service';
 import { Message } from './messages/message.model';
+import { PlatformService } from './plateform.service';
 
 @Injectable()
 export class TermsGuard {
-  constructor(private messages: MessageService, private router: Router) {}
+  constructor(private messages: MessageService, private router: Router, private ps: PlatformService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -32,7 +33,7 @@ export class TermsGuard {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
 
-    if (route.url.length > 0 && route.url[route.url.length - 1].path == "categories") {
+    if ((!this.ps.isServer) && route.url.length > 0 && route.url.length > 0 && route.url[route.url.length - 1].path == "categories") {
 
         return new Promise<boolean>((resolve, reject) => {
             let responses: [string, (arg: string) => void][] = [
