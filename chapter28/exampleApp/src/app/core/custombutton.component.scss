@@ -1,0 +1,37 @@
+@use "@angular/material" as material;
+
+$primary: material.m2-define-palette(material.$m2-indigo-palette);
+$accent: material.m2-define-palette(material.$m2-pink-palette, A200, A100, A400);
+$warn:   material.m2-define-palette(material.$m2-red-palette);
+
+$typography: material.m2-define-typography-config();
+
+button[class*="custom-button-"] {
+  padding: 7px 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 2px;
+}
+
+button.custom-button {
+  @each $name, $palette in (primary: $primary, accent: $accent, warn: $warn) {
+    &-#{$name} {
+      background-color: material.m2-get-color-from-palette($palette, default);
+      color: material.m2-get-color-from-palette($palette, default-contrast);
+      font: {
+        family: material.m2-font-family($typography, button);
+        size: material.m2-font-size($typography, button);
+        weight: material.m2-font-weight($typography, button);
+      }
+    }
+  }
+}
+
+$bg: material.$m2-light-theme-background-palette;
+$fg: material.$m2-light-theme-foreground-palette;
+
+:host[disabled] button[class*="custom-button-"],
+button[class*="custom-button-"]:disabled {
+  background-color: material.m2-get-color-from-palette($bg, disabled-button);
+  color: material.m2-get-color-from-palette($fg, disabled-button);
+}

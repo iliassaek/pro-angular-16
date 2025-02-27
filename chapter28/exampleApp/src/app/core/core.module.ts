@@ -13,7 +13,7 @@ import { CategoryCountComponent } from './categoryCount.component';
 import { NotFoundComponent } from './notFoundComponent';
 import { UnsavedGuard } from './unsaved.guard';
 import { MaterialFeatures } from '../material.module';
-import { CustomButton } from './customButton.component';
+import { CustomButton } from './custombutton.component';
 
 @NgModule({
   imports: [
