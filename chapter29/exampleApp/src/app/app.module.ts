@@ -12,9 +12,10 @@ import { TermsGuard } from './terms.guard';
 import { LoadGuard } from './load.guard';
 import { PlatformService } from './plateform.service';
 import { BrowserGuard } from './browser.guard';
+import { SimpleComponent } from './simple.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SimpleComponent],
   imports: [BrowserModule, ModelModule, CoreModule, MessageModule, routing],
   providers: [
     TermsGuard,
