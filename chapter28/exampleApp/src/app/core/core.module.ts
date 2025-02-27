@@ -8,12 +8,12 @@ import { ValidationHelper } from './validationHelper.pipe';
 import { ValidationErrorsDirective } from './validationErrors.directive';
 import { HiLowValidatorDirective } from '../validation/hilow';
 import { RouterModule } from '@angular/router';
-import { ProductCountComponent } from "./productCount.component";
-import { CategoryCountComponent } from "./categoryCount.component";
+import { ProductCountComponent } from './productCount.component';
+import { CategoryCountComponent } from './categoryCount.component';
 import { NotFoundComponent } from './notFoundComponent';
 import { UnsavedGuard } from './unsaved.guard';
 import { MaterialFeatures } from '../material.module';
-
+import { CustomButton } from './customButton.component';
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import { MaterialFeatures } from '../material.module';
     ModelModule,
     ReactiveFormsModule,
     RouterModule,
-    MaterialFeatures
+    MaterialFeatures,
   ],
   declarations: [
     TableComponent,
@@ -33,8 +33,9 @@ import { MaterialFeatures } from '../material.module';
     ProductCountComponent,
     CategoryCountComponent,
     NotFoundComponent,
+    CustomButton,
   ],
   exports: [ModelModule, TableComponent, FormComponent],
-  providers: [UnsavedGuard]
+  providers: [UnsavedGuard],
 })
 export class CoreModule {}
