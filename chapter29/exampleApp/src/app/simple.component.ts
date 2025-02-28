@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { Model } from './model/repository.model';
 import { Product } from './model/product.model';
 
@@ -13,6 +13,9 @@ export class SimpleComponent {
   category: string = 'Soccer';
   highlighted: boolean = false;
 
+  @Output('pa-highlight')
+  change = new EventEmitter<boolean>();
+
   getProducts(): Product[] {
     return this.repository
       .Products()
@@ -23,5 +26,6 @@ export class SimpleComponent {
   @HostListener('mouseleave', ['$event.type'])
   setHighlight(type: string) {
     this.highlighted = type == 'mouseenter';
+    this.change.emit(this.highlighted);
   }
 }

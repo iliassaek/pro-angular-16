@@ -32,16 +32,12 @@ describe('SimpleComponent', () => {
     });
   }));
 
-  it('handles mouse events', () => {
-    expect(component.highlighted).toBeFalsy();
-    expect(divElement.classList.contains('bg-success')).toBeFalsy();
+  it('implements output property', () => {
+    let highlighted: boolean = false;
+    component.change.subscribe((value) => (highlighted = value));
     debugElement.triggerEventHandler('mouseenter', new Event('mouseenter'));
-    fixture.detectChanges();
-    expect(component.highlighted).toBeTruthy();
-    expect(divElement.classList.contains('bg-success')).toBeTruthy();
+    expect(highlighted).toBeTruthy();
     debugElement.triggerEventHandler('mouseleave', new Event('mouseleave'));
-    fixture.detectChanges();
-    expect(component.highlighted).toBeFalsy();
-    expect(divElement.classList.contains('bg-success')).toBeFalsy();
+    expect(highlighted).toBeFalsy();
   });
 });
