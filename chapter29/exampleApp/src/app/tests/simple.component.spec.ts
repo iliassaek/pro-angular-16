@@ -3,10 +3,14 @@ import { SimpleComponent } from '../simple.component';
 import { Product } from '..//model/product.model';
 import { Model } from '../model/repository.model';
 import { signal } from '@angular/core';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('SimpleComponent', () => {
   let fixture: ComponentFixture<SimpleComponent>;
   let component: SimpleComponent;
+  let debugElement: DebugElement;
+  let bindingElement: HTMLSpanElement;
 
   let mockRepository = {
     Products: signal([
@@ -23,14 +27,24 @@ describe('SimpleComponent', () => {
     });
     fixture = TestBed.createComponent(SimpleComponent);
     component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    bindingElement = debugElement.query(By.css('span')).nativeElement;
   });
 
   it('filters categories', () => {
     component.category = 'Chess';
+    fixture.detectChanges();
     expect(component.getProducts().length).toBe(1);
+    expect(bindingElement.textContent).toContain('1');
+
     component.category = 'Soccer';
+    fixture.detectChanges();
     expect(component.getProducts().length).toBe(2);
+    expect(bindingElement.textContent).toContain('2');
+
     component.category = 'Running';
+    fixture.detectChanges();
     expect(component.getProducts().length).toBe(0);
+    expect(bindingElement.textContent).toContain('0');
   });
 });
