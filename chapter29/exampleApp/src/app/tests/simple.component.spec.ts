@@ -7,6 +7,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 @Component({
+  standalone: false,
   template: `<simple [pa-model]="model"></simple>`,
 })
 class TestComponent {
