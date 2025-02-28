@@ -4,13 +4,12 @@ import { Product } from '..//model/product.model';
 import { Model } from '../model/repository.model';
 import { signal } from '@angular/core';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('SimpleComponent', () => {
   let fixture: ComponentFixture<SimpleComponent>;
   let component: SimpleComponent;
   let debugElement: DebugElement;
-  let bindingElement: HTMLSpanElement;
+  let divElement: HTMLDivElement;
 
   let mockRepository = {
     Products: signal([
@@ -29,24 +28,20 @@ describe('SimpleComponent', () => {
       fixture = TestBed.createComponent(SimpleComponent);
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
-      bindingElement = debugElement.query(By.css('span')).nativeElement;
+      divElement = debugElement.children[0].nativeElement;
     });
   }));
 
-  it('filters categories', () => {
-    component.category = 'Chess';
+  it('handles mouse events', () => {
+    expect(component.highlighted).toBeFalsy();
+    expect(divElement.classList.contains('bg-success')).toBeFalsy();
+    debugElement.triggerEventHandler('mouseenter', new Event('mouseenter'));
     fixture.detectChanges();
-    expect(component.getProducts().length).toBe(1);
-    expect(bindingElement.textContent).toContain('1');
-
-    component.category = 'Soccer';
+    expect(component.highlighted).toBeTruthy();
+    expect(divElement.classList.contains('bg-success')).toBeTruthy();
+    debugElement.triggerEventHandler('mouseleave', new Event('mouseleave'));
     fixture.detectChanges();
-    expect(component.getProducts().length).toBe(2);
-    expect(bindingElement.textContent).toContain('2');
-
-    component.category = 'Running';
-    fixture.detectChanges();
-    expect(component.getProducts().length).toBe(0);
-    expect(bindingElement.textContent).toContain('0');
+    expect(component.highlighted).toBeFalsy();
+    expect(divElement.classList.contains('bg-success')).toBeFalsy();
   });
 });
