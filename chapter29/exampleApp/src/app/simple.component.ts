@@ -5,11 +5,7 @@ import { Product } from './model/product.model';
 @Component({
   standalone: false,
   selector: 'simple',
-  template: `<div class="bg-primary text-white p-1">
-    There are
-    <span class="strong"> {{ getProducts().length }} </span>
-    products
-  </div>`,
+  templateUrl: 'simple.component.html',
 })
 export class SimpleComponent {
   constructor(private repository: Model) {}
