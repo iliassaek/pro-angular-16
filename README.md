@@ -1,13 +1,48 @@
-# Manning Source Code
+# Autoformation d'Angular via "Pro Angular 16"
 
-This repository accompanies *Pro Angular 16* by Adam Freeman.
+Ce dépôt est un fork personnel du code source du livre "Pro Angular 16" par Adam Freeman. Les exemples originaux étant développés avec Angular 16, j'ai entrepris de les mettre à jour vers Angular 19. Ce projet me sert de support pour une montée en compétence pratique sur les dernières versions du framework.
 
-Download the files as a zip using the green button or clone the repository to your machine using Git.
+## 🎯 Objectif
 
-## Releases
+En tant que développeur confirmé spécialisé dans le back, j'ai créé ce fork pour apprendre les bases d'angular afin d'enrichir ma panoplie de compétences.
 
-This repository corresponds to the examples in the published book, without corrections or updates. See [this](errata.md) file for serious issues that are likely to prevent the examples from working as described in the book. See [this](typos.md) file for small mistakes that I intend to correct in the next edition.
+## 🛠️ Concepts Étudiés
 
-## Contributions
+Ce projet couvre les piliers du développement Angular moderne :
 
-If you find an error, please contact the author using the email address published in the book. Please do not create pull requests because they will not be accepted. Please do not create issues because the author will not respond to them.
+* **Architecture :** Standalone Components, Modules, Services et Injection de Dépendances (DI).
+* **Fondamentaux :** Data Binding, Directives, et Pipes.
+* **Programmation Réactive :** Utilisation de RxJS pour la gestion des états et des événements asynchrones.
+* **Navigation :** Routage avancé, incluant les Route Guards et les Resolvers.
+* **Formulaires :** Maîtrise des Reactive Forms pour la gestion de données complexes.
+* **Communication :** Intégration d'API REST avec `HttpClientModule`.
+* **Tests :** Pratiques de tests unitaires et d'intégration (Jasmine & Karma).
+
+## Projet réalisé
+Application web angular pour gestion d'un magasin de produits sportifs
+![img.png](img.png)
+
+## 🚀 Démarrage du projet
+
+Chaque dossier correspond à un projet ou à un chapitre du livre.
+
+1.  **Cloner le dépôt :**
+    ```bash
+    git clone [https://github.com/iliassaek/pro-angular-16.git](https://github.com/iliassaek/pro-angular-16.git)
+    ```
+
+2.  **Naviguer vers un projet :**
+
+    ```bash
+    cd chapter08/SportsStore
+    ```
+
+3.  **Installer les dépendances et lancer :**
+    ```bash
+    npm install && ng serve
+    ```
+    ```bash
+    npm run json
+    ```
+
+4.  **Accéder à l'application :** `http://localhost:4200`
